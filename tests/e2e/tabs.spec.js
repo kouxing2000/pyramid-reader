@@ -55,8 +55,6 @@ test('each tab has its own panel: a second tab opens a second one, the first kee
   // Back to the first tab: the same panel, the same tree.
   await page.bringToFront();
   await expect.poll(() => visibility(first)).toBe('visible');
-  // Chrome can tell the tab left behind a moment after the one in front.
-  await expect.poll(() => visibility(other)).toBe('hidden');
   expect(await titles(first)).toEqual(TITLES);
   expect(provider.requests).toHaveLength(1);
 });

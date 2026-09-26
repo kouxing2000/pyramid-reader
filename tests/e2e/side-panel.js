@@ -183,17 +183,32 @@ class SidePanel {
     return result.value;
   }
 
+  // Clicks the element once it stays put and is what its centre hits, as Playwright does: a panel
+  // Chrome is still opening changes size, and scrolling clamps with it, so a point measured before
+  // that lands on whatever moved under it. Inline elements are clicked on their first line box.
   async click(selector) {
-    const point = await this.evaluate((sel) => {
+    const point = await this.evaluate(async (sel) => {
       const el = document.querySelector(sel);
       if (!el) return null;
-      el.scrollIntoView({ block: 'center' });
-      const r = el.getBoundingClientRect();
-      return r.width || r.height ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : { hidden: true };
+      let last = null;
+      let hit = null;
+      for (let tries = 0; tries < 100; tries++) {
+        el.scrollIntoView({ block: 'center' });
+        await new Promise((r) => setTimeout(r, 20));
+        const r = el.getClientRects()[0];
+        if (!r || !(r.width || r.height)) return { hidden: true };
+        const box = [r.left, r.top, r.width, r.height].join();
+        const [x, y] = [r.left + r.width / 2, r.top + r.height / 2];
+        hit = document.elementFromPoint(x, y);
+        if (box === last && hit && el.contains(hit)) return { x, y };
+        last = box;
+      }
+      return { covered: hit ? `${hit.tagName}${hit.id ? `#${hit.id}` : ''}` : 'nothing' };
     }, selector);
     if (!point) throw new Error(`side panel: no element matches ${selector}`);
     // A box with no size would be clicked at (0, 0), on whatever is there.
     if (point.hidden) throw new Error(`side panel: ${selector} is not rendered`);
+    if (point.covered) throw new Error(`side panel: ${selector} never held still under its centre (${point.covered} there)`);
     for (const type of ['mousePressed', 'mouseReleased']) {
       await this.send('Input.dispatchMouseEvent', { type, ...point, button: 'left', clickCount: 1 });
     }
