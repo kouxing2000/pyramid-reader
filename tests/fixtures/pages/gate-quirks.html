@@ -1,0 +1,24 @@
+<!-- Written for the tests. No doctype: quirks mode, where <html>'s client box is the whole
+     document rather than the viewport. A fixed backdrop over the viewport covers everything. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gate in quirks mode</title>
+<style>
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  article { max-width: 640px; margin: 0 auto; padding: 16px 24px; }
+  article p { margin: 0 0 216px; }
+  .backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: rgba(0, 0, 0, 0.7); }
+</style>
+</head>
+<body>
+<article>
+  <p>QUIRKS-1 is the opening paragraph of an article in a page without a doctype.</p>
+  <p>QUIRKS-2 is the second paragraph of that article, further down the scrolling page.</p>
+  <p>QUIRKS-3 is the third paragraph of that article, well below the first screenful.</p>
+  <p>QUIRKS-4 is the fourth paragraph of that article, near the end of the document.</p>
+  <p>QUIRKS-5 is the fifth and last paragraph of the article under the backdrop.</p>
+</article>
+<div class="backdrop"></div>
+</body>
+</html>

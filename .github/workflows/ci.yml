@@ -1,0 +1,43 @@
+name: CI
+
+# Runs the test suite on pull requests and on direct pushes to master, so incoming
+# contributions get a green/red signal before merge and any master breakage surfaces
+# immediately instead of at release time. Needs no secrets; forked-PR runs get a read-only
+# token by default, which is all this requires.
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Every `uses:` is pinned to a full commit SHA with the tag in a trailing comment: a tag is
+    # mutable, a SHA is not. Dependabot (.github/dependabot.yml) moves the pins.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install tooling
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        # window.spec.js runs headed (playwright.config.js), which on Linux needs a display.
+        run: xvfb-run -a npm test

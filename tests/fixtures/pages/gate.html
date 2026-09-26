@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Written for the tests. A viewport-level paywall gate; ?mode= picks its shape:
+     backdrop - a fixed full-viewport backdrop plus dialog: nothing is readable
+     locked   - a centred fixed dialog with the page scroll-locked: only the first screen is
+                reachable, and GATED-2 sits under the dialog
+     fixed    - the same, scroll-locked by pinning <body> with position: fixed
+     open     - the same dialog without the scroll lock: the text scrolls past it, readable
+     dialog   - a native modal <dialog> with an opaque ::backdrop; the page still scrolls, and
+                the article sits in a raised stacking context the top layer still paints over
+     pseudo   - a modal whose backdrop is its own ::before at z-index -1: negative inside the
+                modal's stacking context, yet above the whole page -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gate</title>
+<style>
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  article { max-width: 640px; margin: 0 auto; padding: 16px 24px; }
+  /* One line each, 240px apart: tops at 16, 256, 496, 736, 976 in a 720px viewport. */
+  article p { height: 24px; margin: 0 0 216px; white-space: nowrap; }
+  .backdrop { position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, 0.7); }
+  .dialog { position: fixed; left: 50%; top: 50%; width: 360px; height: 240px; margin: -120px 0 0 -180px;
+            z-index: 1001; background: #fff; }
+  .modal { position: fixed; left: 50%; top: 50%; width: 360px; height: 240px; margin: -120px 0 0 -180px; z-index: 2000; }
+  .modal::before { content: ""; position: fixed; inset: 0; z-index: -1; background: rgba(0, 0, 0, 0.7); }
+  #paywall::backdrop { background: rgba(0, 0, 0, 0.95); }
+  html.dialog article { position: relative; z-index: 1; }
+  html.locked, html.locked body { overflow: hidden; }
+  html.fixed body { position: fixed; top: 0; left: 0; right: 0; }
+</style>
+<script>
+  const mode = new URLSearchParams(location.search).get('mode');
+  document.documentElement.className = ['locked', 'fixed', 'dialog'].includes(mode) ? mode : '';
+  addEventListener('DOMContentLoaded', () => {
+    if (mode !== 'backdrop') document.querySelector('.backdrop').remove();
+    if (mode !== 'pseudo') document.querySelector('.modal').remove();
+    if (mode === 'dialog') document.getElementById('paywall').showModal();
+  });
+</script>
+</head>
+<body>
+<article>
+  <p>GATED-1 is the opening paragraph of the article that the paywall gate sits over.</p>
+  <p>GATED-2 is the second paragraph of the article, further down the scrolling page.</p>
+  <p>GATED-3 is the third paragraph of the article, well below the first screenful.</p>
+  <p>GATED-4 is the fourth paragraph of the article, near the end of the document.</p>
+  <p>GATED-5 is the fifth and last paragraph of the article under the gate element.</p>
+</article>
+<div class="backdrop"></div>
+<div class="modal"></div>
+<dialog id="paywall">Subscribe to keep reading.</dialog>
+<div class="dialog"><p>Subscribe now to continue reading this and every other article.</p></div>
+</body>
+</html>

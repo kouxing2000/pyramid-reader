@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Pyramid Reader</title>
+  <style>
+    /* Sans is the model's words, serif the page's own (quotes); amber is reserved for checks
+       that failed, so a warning never has to compete with decoration. */
+    :root {
+      --bg: #f6f7f9; --card: #fff; --ink: #1d2433; --muted: #5f6b7d; --faint: #8b95a5; --line: #e3e7ee;
+      --hover: #eef1f6; --accent: #2f5bd3; --accent-ink: #fff; --accent-weak: #e7edfc; --ok: #1a8a4a;
+      --current: #fff3c4; --quote-rule: #b9c6ef; --warn: #9a4a00; --warn-bg: #fff6e6; --warn-line: #f0a020;
+      --shadow: 0 1px 2px rgb(16 24 40 / 0.06);
+      --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+      --serif: ui-serif, Georgia, "Times New Roman", serif;
+      --zh: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14171c; --card: #1d2129; --ink: #e7e9ee; --muted: #a3acba; --faint: #7d8796; --line: #2d333e;
+        --hover: #262c36; --accent: #7fa3ff; --accent-ink: #0d1424; --accent-weak: #232f4d; --ok: #4cc47f;
+        --current: #4a3f14; --quote-rule: #3e4c78; --warn: #f3b34c; --warn-bg: #2f230f; --warn-line: #c98a14;
+        --shadow: none;
+      }
+    }
+    [hidden] { display: none !important; }
+    html { background: var(--bg); }
+    body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; background: var(--bg);
+           color: var(--ink); font: 14px/1.5 var(--sans); }
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    p { margin: 0; }
+    ol, ul { list-style: none; margin: 0; padding: 0; }
+    :lang(zh) { font-family: var(--zh); }
+
+    /* ---- header: the page this panel reads, and Settings behind the gear. No brand: Chrome's own
+       side panel header names the extension, and no API hides it. ---- */
+    header { position: relative; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--card); }
+    /* Two lines, the title's and the note's, always there: the page is read after the panel opens,
+       and a line that appeared or wrapped would move Build under a click. Each cuts off with an ellipsis. */
+    .source-line { display: grid; align-content: start; height: 36px; padding-right: 40px; font-size: 12px;
+                   line-height: 18px; color: var(--muted); }
+    .source-line:not(:has(:not([hidden]):not(:empty))) { visibility: hidden; }
+    #source, #page-note { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    #source { color: var(--ink); font-weight: 600; }
+    #settings > summary { position: absolute; top: 13px; right: 12px; display: grid; place-items: center;
+                          width: 30px; height: 30px; border-radius: 8px; color: var(--muted); list-style: none; cursor: pointer; }
+    #settings > summary::-webkit-details-marker { display: none; }
+    #settings > summary:hover, #settings[open] > summary { background: var(--hover); color: var(--ink); }
+    .sheet { display: grid; gap: 12px; margin: 10px 0 4px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .sheet h2 { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    #settings form { display: grid; gap: 8px; }
+    #settings label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
+    #settings label[hidden] { display: none; }
+    #settings input, #settings select { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px;
+                                        background: var(--bg); color: var(--ink); font-size: 13px; }
+    #settings button[type="submit"] { justify-self: start; }
+    #settings-status { color: var(--muted); font-size: 13px; }
+    #free-key { margin: 0; color: var(--muted); font-size: 12px; }
+    #free-key a { color: var(--accent); }
+    .model-row { display: flex; flex-wrap: wrap; gap: 4px 0; align-items: baseline; }
+    .model-row input { flex: 1; min-width: 10em; }
+    #model-check { font-size: 12px; font-weight: 600; }
+    #model-check:not(:empty) { margin-left: 8px; } /* empty, it takes no room from the Model field */
+    #model-check.ok { color: var(--ok); font-size: 15px; }
+    #model-check.warn { color: var(--warn); }
+    #translation { display: grid; gap: 6px; }
+    #translation p { font-size: 12px; color: var(--muted); }
+    #translate-to { justify-self: start; }
+    .link { justify-self: start; padding: 0; border: 0; background: none; color: var(--accent); font-size: 12px;
+            text-decoration: underline; text-underline-offset: 2px; }
+    #tested table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    #tested th, #tested td { padding: 3px 4px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    #tested th { color: var(--muted); font-weight: 600; }
+    #tested-none, #recommended { font-size: 12px; color: var(--muted); }
+
+    /* ---- actions ---- */
+    main { flex: 1; padding: 12px 16px 16px; }
+    #actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .btn, #settings button[type="submit"], #demo-offer button { padding: 5px 14px; border: 1px solid var(--line);
+      border-radius: 8px; background: var(--card); color: var(--ink); font-weight: 550; box-shadow: var(--shadow); }
+    .btn:hover, #demo-offer button:hover { background: var(--hover); }
+    .btn.primary, #settings button[type="submit"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+    .btn.primary:hover { filter: brightness(1.08); background: var(--accent); }
+    .btn:disabled { opacity: 0.55; cursor: default; }
+    #paint-mode { display: inline-flex; margin-left: auto; padding: 2px; border: 1px solid var(--line); border-radius: 8px;
+                  background: var(--card); }
+    #paint-mode button { padding: 2px 9px; border: 0; border-radius: 6px; background: none; color: var(--muted); font-size: 12px; }
+    #paint-mode button[aria-pressed="true"] { background: var(--accent-weak); color: var(--accent); font-weight: 600; }
+    /* Nothing to paint until a tree is on screen, streaming included. */
+    main:has(#tree:empty) #paint-mode { display: none; }
+    /* A segment's focus ring stays inside it, off its neighbours and the group's border. */
+    #paint-mode button:focus-visible, #read-mode button:focus-visible { outline-offset: -2px; }
+    #demo-offer { margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); }
+    #demo-offer button { display: block; margin-top: 8px; }
+
+    /* ---- the tree in a second language (panel.js, translate.js): the verdict, each title and
+       each body is its original (.orig), then its translation (.tr), empty until it arrives.
+       Original shows the original; Both adds the translation under it, tagged with its language;
+       the reader's language shows the translation in the original's place once it has arrived. ---- */
+    #read-in { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 10px; }
+    .read-in-label { font-size: 12px; font-weight: 600; color: var(--muted); }
+    #read-mode { display: inline-flex; padding: 2px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+    #read-mode button { padding: 2px 10px; border: 0; border-radius: 6px; background: none; color: var(--muted); font-size: 12px; }
+    #read-mode button[aria-pressed="true"] { background: var(--accent-weak); color: var(--accent); font-weight: 600; }
+    /* The reader's language's ▾: a native select, invisible over the glyph, so it opens Chrome's own list. */
+    /* It sits flush against the reader's language, so the two read as one "中文 ▾". */
+    #read-mode button[data-read="mine"] { padding-right: 4px; border-radius: 6px 0 0 6px; }
+    #read-pick { position: relative; display: grid; place-items: center; width: 20px; border-radius: 0 6px 6px 0;
+                 color: var(--muted); font-size: 14px; line-height: 1; }
+    #read-pick:hover { background: var(--hover); color: var(--ink); }
+    #read-pick:has(select:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
+    #read-mode [data-read="mine"][aria-pressed="true"] + #read-pick { background: var(--accent-weak); color: var(--accent); }
+    #read-lang { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    #read-note { flex-basis: 100%; font-size: 12px; color: var(--muted); }
+    #read-note.failed { color: var(--warn); }
+    #read-note.busy { color: var(--ink); }
+    #read-note.busy::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px;
+      border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; vertical-align: -1px;
+      animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { #read-note.busy::before { animation: none; } }
+    #read-action { margin-left: 6px; padding: 1px 10px; border: 1px solid var(--accent); border-radius: 999px;
+                   background: var(--card); color: var(--accent); font-size: 12px; }
+    .tr { display: none; }
+    body[data-read="both"] .tr:not(:empty) { display: block; margin-top: 3px; font-size: 13px; font-weight: 400;
+                                             line-height: 1.45; color: var(--muted); }
+    body[data-read="both"] .tr:not(:empty)::before { content: attr(data-tag); margin-right: 6px; padding: 0 4px;
+      border: 1px solid var(--line); border-radius: 4px; font: 600 10px/1.6 var(--sans); vertical-align: 1px; }
+    body[data-read="mine"] .tr:not(:empty) { display: inline; }
+    body[data-read="mine"] .orig:has(+ .tr:not(:empty)) { display: none; }
+
+    /* ---- the painted page's colours: each claim's, as on the page (content/page.js PAINT_HUES) ---- */
+    ol.claims > li:nth-child(5n+1), #map [data-h="c1"] { --c: rgb(0 114 178); }
+    ol.claims > li:nth-child(5n+2), #map [data-h="c2"] { --c: rgb(230 159 0); }
+    ol.claims > li:nth-child(5n+3), #map [data-h="c3"] { --c: rgb(0 158 115); }
+    ol.claims > li:nth-child(5n+4), #map [data-h="c4"] { --c: rgb(204 121 167); }
+    ol.claims > li:nth-child(5n+5), #map [data-h="c5"] { --c: rgb(240 228 66); }
+    section.verdict, #map [data-h="v"] { --c: rgb(128 128 128); }
+
+    /* ---- the tree ---- */
+    #tree { margin-top: 10px; }
+    .go { display: block; width: 100%; margin: 0; padding: 0; border: 0; background: none; color: inherit;
+          font: inherit; text-align: left; cursor: pointer; }
+    .go:hover { text-decoration: underline dotted; text-underline-offset: 3px; }
+    [aria-current="true"] { background: var(--current) !important; border-radius: 3px; }
+    .cites { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+    .cite { padding: 0 6px; border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+            color: var(--muted); font-size: 11px; line-height: 18px; }
+    .cite:hover { border-color: var(--accent); color: var(--accent); }
+    .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; }
+    .check { font-size: 12px; color: var(--ok); white-space: nowrap; }
+    .check[data-status="repaired"], .check[data-status="unanchored"] { color: var(--warn); }
+    .tag { padding: 0 6px; border-radius: 4px; background: var(--accent-weak); font-size: 11px; color: var(--muted); }
+
+    /* A check result names itself, but a claim row shows the ✓ alone: the label stays for
+       screen readers. A warning keeps its words everywhere. */
+    .side .check[data-status="anchored"] .label { position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap; }
+
+    .verdict { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: var(--shadow); }
+    .kind { display: inline-block; margin-bottom: 6px; padding: 1px 8px; border-radius: 999px; background: var(--accent-weak);
+            color: var(--accent); font-size: 11px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
+    .verdict .title { font-size: 16px; font-weight: 650; line-height: 1.4; }
+    .summary { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+
+    .claims-head { display: flex; align-items: baseline; justify-content: space-between; margin: 18px 0 6px; }
+    .claims-head span { font-size: 11px; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .expand-all { padding: 0; border: 0; background: none; color: var(--accent); font-size: 12px; }
+    .claim { border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 10px; background: var(--card);
+             box-shadow: var(--shadow); }
+    body[data-paint="off"] .claim { border-left-color: var(--line); }
+    /* The page tells which claims are on screen (filled number), under the pointer and picked. */
+    .claim.in-view > .node > .num { background: var(--c); color: #fff; }
+    ol.claims > li:nth-child(5n+5).in-view > .node > .num { color: #1d2433; }
+    .claim.pointed, .verdict.pointed { box-shadow: 0 0 0 2px var(--c); }
+    .claim.selected, .verdict.selected { border-color: var(--c); }
+    .claim + .claim { margin-top: 8px; }
+    .claim.open { border-color: var(--quote-rule); border-left-color: var(--c); }
+    .claim > .node { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 0 10px; padding: 10px 10px 10px 12px;
+                     cursor: pointer; }
+    .claim > .node > .more, .claim > .node > .flags { cursor: auto; }
+    /* Only the title shares its row with the check and chevron; what follows takes the full width. */
+    .claim > .node > * { grid-column: 2 / -1; }
+    .claim > .node > .title { grid-column: 2; }
+    .claim > .node > .num { grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 24px; height: 24px;
+      box-sizing: border-box; border: 2px solid var(--c); border-radius: 50%; color: var(--ink); font-size: 12px; font-weight: 700; }
+    body[data-paint="off"] .claim > .node > .num { border-color: var(--line); background: none; color: var(--muted); }
+    .claim > .node > .side { grid-column: 3; grid-row: 1; display: flex; align-items: flex-start; gap: 4px; }
+    .claim > .node > .title { font-weight: 600; line-height: 1.4; }
+    .fold { width: 24px; height: 24px; margin: -2px -4px 0 0; padding: 0; border: 0; border-radius: 6px; background: none;
+            color: var(--muted); font-size: 16px; line-height: 1; transition: transform 0.15s; }
+    .fold:hover { background: var(--hover); color: var(--ink); }
+    .claim.open .fold { transform: rotate(90deg); }
+    .more { margin-top: 8px; }
+    .more .body { color: var(--muted); font-size: 13px; }
+    .claim:not(.open) > .node > .more, .claim:not(.open) > ol.evidence { display: none; }
+    ol.evidence { display: grid; gap: 8px; padding: 0 10px 12px 46px; }
+    .evidence > .node { padding: 8px 10px; border-left: 3px solid var(--quote-rule); border-radius: 0 8px 8px 0; background: var(--bg); }
+    .quote { font-family: var(--serif); font-size: 14px; line-height: 1.45; }
+    .quote::before { content: "“"; } .quote::after { content: "”"; }
+    .evidence .meta { margin-top: 4px; }
+
+    .flags { display: grid; gap: 6px; margin-top: 8px; padding: 8px 10px; border-left: 3px solid var(--warn-line);
+             border-radius: 0 8px 8px 0; background: var(--warn-bg); color: var(--warn); font-size: 13px; }
+    @media (prefers-reduced-motion: reduce) { .fold { transition: none; } }
+
+    /* ---- the article map: the page's paint along the article, beside the page's scrollbar ---- */
+    #map { position: fixed; top: 0; bottom: 0; left: 0; width: 6px; background: var(--bg); border-right: 1px solid var(--line); }
+    #map .tick { position: absolute; left: 0; right: 0; background: var(--c); }
+    #map .window { position: absolute; left: 0; right: 0; background: rgb(128 128 128 / 0.45); }
+
+    /* ---- the paragraphs a tree would be built from ---- */
+    #paragraphs h2 { margin: 16px 0 4px; font-size: 12px; font-weight: 650; color: var(--muted); }
+    #paragraphs ol { border: 1px solid var(--line); border-radius: 10px; background: var(--card); overflow: hidden; }
+    #paragraphs li + li { border-top: 1px solid var(--line); }
+    .para { display: flex; gap: 8px; width: 100%; padding: 6px 8px; border: 0; background: none; text-align: left; }
+    .para:hover { background: var(--hover); }
+    .n { flex: none; min-width: 2.5em; color: var(--faint); }
+    .text { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ---- footer: what the panel is doing, or what built the tree ---- */
+    footer { position: sticky; bottom: 0; padding: 7px 16px; border-top: 1px solid var(--line); background: var(--card); }
+    #status { font-size: 12px; color: var(--muted); }
+    #status:empty { display: none; }
+    footer:has(#status:empty) { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="source-line"><span id="source" hidden></span><span id="page-note"></span></p>
+    <details id="settings">
+      <summary title="Settings" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </summary>
+      <div class="sheet">
+        <h2>Settings</h2>
+        <form id="settings-form">
+          <label>Provider <select id="provider"></select></label>
+          <label id="base-url-row">Base URL <input id="base-url" type="url" placeholder="https://api.deepseek.com/v1"></label>
+          <label>Model <span class="model-row"><input id="model"> <span id="model-check" role="status"></span></span></label>
+          <label>API key <input id="api-key" type="password" autocomplete="off" spellcheck="false"></label>
+          <p id="free-key">No API key? <a id="free-key-link" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener"
+            title="Opens Google AI Studio in a new tab and sets Provider to Google Gemini here. Create a key there, then paste it above and Save.">Get a free Gemini key</a>
+            from Google AI Studio. On its free tier, Google may use the text you send to improve its products.</p>
+          <button type="submit" id="save">Save</button>
+          <p id="settings-status" role="status"></p>
+        </form>
+        <section id="translation">
+          <h2>Translation</h2>
+          <label id="translate-to-row">Translate into <select id="translate-to"></select></label>
+          <p id="translation-note"></p>
+          <button id="chrome-languages" class="link" type="button">Change Chrome’s languages</button>
+        </section>
+        <section id="tested">
+          <h2>Tested models</h2>
+          <p id="recommended"></p>
+          <table id="tested-models" hidden>
+            <thead><tr><th>Model</th><th>Quotes anchored</th><th>Verdict / tree</th><th>Measured</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p id="tested-none"></p>
+        </section>
+      </div>
+    </details>
+  </header>
+  <main>
+    <div id="actions">
+      <button id="build" class="btn primary" type="button">Build tree</button>
+      <button id="rebuild" class="btn" type="button" hidden>Rebuild</button>
+      <button id="stop" class="btn" type="button" hidden>Stop</button>
+      <span id="paint-mode" role="group" aria-label="Paint the tree on the page" title="Paint each claim's sentences on the page">
+        <button type="button" data-mode="all" aria-pressed="true" title="Paint every claim's sentences">All</button>
+        <button type="button" data-mode="focus" aria-pressed="false" title="Paint only the claim you pick">Focus</button>
+        <button type="button" data-mode="off" aria-pressed="false" title="Paint nothing">Off</button>
+      </span>
+    </div>
+    <!-- Below Build, so that appearing once settings load never moves the button under a click. -->
+    <p id="demo-offer" hidden><span id="demo-offer-text"></span> <button id="open-demo" type="button">Open the demo</button></p>
+    <div id="read-in" hidden>
+      <span id="read-in-label" class="read-in-label">Read in</span>
+      <span id="read-mode" role="group" aria-labelledby="read-in-label">
+        <button type="button" data-read="original" aria-pressed="false"></button>
+        <button type="button" data-read="both" aria-pressed="false">Both</button>
+        <button type="button" data-read="mine" aria-pressed="false"></button>
+        <label id="read-pick"><span aria-hidden="true">▾</span><select id="read-lang"></select></label>
+      </span>
+      <p id="read-note" role="status" hidden><span id="read-note-text"></span><button id="read-action" type="button" hidden></button></p>
+    </div>
+    <div id="tree"></div>
+    <div id="paragraphs"></div>
+  </main>
+  <footer><p id="status" role="status"></p></footer>
+  <div id="map" hidden aria-hidden="true"></div>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

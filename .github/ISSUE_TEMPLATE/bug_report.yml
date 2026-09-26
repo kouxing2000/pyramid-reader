@@ -1,0 +1,53 @@
+name: Bug report
+description: The tree, a check, a source click or a provider isn't working
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. **Never paste an API key.** If the problem is what a model wrote
+        (a verdict more certain than the page, a wrong claim), name the provider and model: the
+        prompt holds the model to the page, and which models hold is what the tested-models table
+        measures. **Do not report a security vulnerability in a public issue**; see SECURITY.md.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you get instead? The panel's status line (bottom) often names the cause.
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page (origin + path)
+      description: The article where it broke, if it is public. Please strip any query string or tokens.
+      placeholder: https://example.com/some/article
+  - type: input
+    id: provider
+    attributes:
+      label: Provider and model
+      description: As set in Settings. Never the key.
+      placeholder: OpenAI, gpt-5.4-mini
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: From chrome://extensions (or manifest "version").
+      placeholder: 0.0.3
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Chrome version & OS
+      placeholder: Chrome 140 on macOS 26
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the page above
+        2. Press Alt+Shift+P, then Build tree
+        3. ...

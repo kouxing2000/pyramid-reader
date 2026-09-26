@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- Written for the tests. The document itself never scrolls; the article scrolls inside a box:
+     shell   - an app shell: <html>/<body> locked, the article in a scrolling #app
+     overlay - a reader overlay: a fixed, full-viewport, scrolling box over the page
+     Either way, text the reader scrolled past, or that sits under the fixed cookie bar, is text
+     they can scroll back to. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scrolling box</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  #app { height: 100%; overflow-y: auto; }
+  html.overlay #app { position: fixed; inset: 0; z-index: 10; background: #fff; }
+  article { max-width: 640px; margin: 0 auto; padding: 16px 24px; }
+  /* One line each, 324px apart: tops at 16, 340, 664, 988, 1312, 1636 in the box. */
+  article p { height: 24px; margin: 0 0 300px; white-space: nowrap; }
+  .cookie { position: fixed; left: 0; right: 0; bottom: 0; height: 80px; z-index: 20; background: #333; color: #fff; }
+</style>
+<script>
+  document.documentElement.className = new URLSearchParams(location.search).get('mode') ?? '';
+</script>
+</head>
+<body>
+<div id="app">
+  <article>
+    <p>SCROLL-1 is the opening paragraph, which the reader has scrolled up out of view.</p>
+    <p>SCROLL-2 is the second paragraph, also above the part of the box now in view.</p>
+    <p>SCROLL-3 is the third paragraph, around the middle of the scrolling article.</p>
+    <p>SCROLL-4 is the fourth paragraph, which may sit under the fixed cookie bar.</p>
+    <p>SCROLL-5 is the fifth paragraph, further down the box than the reader has gone.</p>
+    <p>SCROLL-6 is the last paragraph, at the very end of the scrolling article box.</p>
+  </article>
+</div>
+<div class="cookie">We use cookies.</div>
+</body>
+</html>

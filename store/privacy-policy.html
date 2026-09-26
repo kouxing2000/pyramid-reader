@@ -1,0 +1,143 @@
+<!doctype html>
+<!-- Source of https://peach-studio.com/privacy_policy_pyramid-reader.html, the studio site's central
+     privacy page for Pyramid Reader (the URL the Chrome Web Store listing points at). The studio
+     site serves a copy without this comment: change this file first, then redeploy the copy. The
+     page must stay reachable for as long as the listing is live. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Privacy Policy · Pyramid Reader</title>
+  <style>
+    :root { --bg: #f6f7f9; --card: #fff; --ink: #1d2433; --muted: #5f6b7d; --line: #e3e7ee; --accent: #2f5bd3; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #14171c; --card: #1d2129; --ink: #e7e9ee; --muted: #a3acba; --line: #2d333e; --accent: #7fa3ff; }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body { margin: 0; color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 64px; }
+    .top { padding: 28px 0 8px; font-size: 14px; }
+    .top a { color: var(--accent); text-decoration: none; }
+    .card { margin-top: 12px; padding: 32px 36px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+    h1 { margin: 0 0 4px; font-size: 28px; line-height: 1.3; }
+    .updated { margin: 0 0 24px; color: var(--muted); font-size: 14px; }
+    h2 { margin: 28px 0 8px; font-size: 19px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 12px; padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    code { padding: 1px 5px; border-radius: 4px; background: rgb(127 127 127 / 0.14); font-size: 14px; }
+    strong.no { color: var(--accent); }
+    footer { margin-top: 20px; color: var(--muted); font-size: 13px; text-align: center; }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top"><a href="https://peach-studio.com/">← Peach Studio</a></nav>
+  <main class="card">
+    <h1>Privacy Policy · Pyramid Reader</h1>
+    <p class="updated">Last updated: 2026-09-26</p>
+
+    <p>Pyramid Reader is a Chrome extension that turns the article you are reading into a summary
+      in levels, the conclusion first and the claims, evidence and sentences under it, using an AI
+      model and API key that you supply. It has no server and no accounts. <strong>Nothing you
+      read, build or type is sent to us.</strong></p>
+
+    <h2>What we collect</h2>
+    <p><strong class="no">Nothing.</strong> The extension does not collect, store or transmit any
+      personal data, browsing history or page content to the developer or to any third party of
+      ours. It has no analytics, no telemetry and no crash reporting. The only way anything reaches
+      us is a message you choose to send: an issue on the project's repository, or an email.</p>
+
+    <h2>What leaves your device, and where it goes</h2>
+    <p>The extension sends page text in one case: <strong>when you press Build tree</strong>, it sends
+      the visible text of the page you opened it on (if it first asks you to click its toolbar
+      icon, the page the tab shows when you click) to the AI provider you configured in Settings,
+      with your own API key, and receives the tree in return. That provider is the extension's only
+      destination for page text, and, with the Settings check below, its only network contact.</p>
+    <ul>
+      <li><strong>Which provider:</strong> the one you chose: OpenAI, Anthropic, Google Gemini, or an
+        OpenAI-compatible endpoint you named (for example DeepSeek, Qwen, Kimi, OpenRouter, or a
+        model server running on your own computer). Access to that provider's address is requested
+        from you when you save a key for it, and only for that address. The extension sends no request
+        to any other site.</li>
+      <li><strong>What is sent:</strong> the paragraphs of the page that are visible to you, as
+        plain text. Text hidden behind a paywall overlay or otherwise not rendered is not read and
+        not sent. Nothing else about you or your browser is included beyond what your browser and
+        that provider's API require.</li>
+      <li><strong>The provider's handling</strong> of the text and of your key is governed by that
+        provider's own terms and privacy policy, which you agreed to when you obtained the key. We
+        have no access to those requests or their answers.</li>
+      <li><strong>Settings</strong> also asks your chosen provider, with your saved key, whether it
+        serves the model you typed, when you open Settings and when you save. That request carries
+        no page text.</li>
+    </ul>
+    <p>Reading the tree in another language sends nothing: translation runs on your computer with
+      Chrome's built-in translator. The first time you use a language, <em>Chrome itself</em>
+      downloads that language's translation model from Google, as it does for Chrome's own
+      translation feature; the extension neither sends nor receives anything for it.</p>
+    <p>The bundled demo article and its tree are shipped inside the extension. Opening the demo
+      sends nothing.</p>
+
+    <h2>Data stored on your device</h2>
+    <p>Everything below is kept in the extension's local storage in your browser
+      (<code>chrome.storage.local</code>). It is never synced through your Google account and never
+      sent to us. Removing the extension deletes it.</p>
+    <ul>
+      <li><strong>Your settings:</strong> the provider, model and endpoint address you chose, and
+        your paint, reading-view and translation-language preferences.</li>
+      <li><strong>Your API keys</strong>, one per provider address. A key is sent only to the
+        address you saved it for. Keys are never logged and never synced.</li>
+      <li><strong>Trees you built.</strong> A finished tree is saved so that the same page shows it
+        again without a new request. Each entry holds the page's address, the tree (whose quotes are
+        that page's words), the provider and model that built it, and when it was built and last shown; it is
+        filed under a hash of the page's address and text. The saved trees are therefore a record of
+        the pages you built trees for. They stay on this device; the oldest are dropped as the store
+        fills.</li>
+    </ul>
+
+    <h2>Permissions</h2>
+    <p>Requested at install, the minimal set:</p>
+    <ul>
+      <li><strong>activeTab / scripting</strong>: access to a page starts only when you click the
+        toolbar icon or press the keyboard shortcut on it. The extension then reads the visible text
+        of that page, and of that page loaded again, on your device only, to show the page's title
+        and any tree you saved for it, it highlights the sentence a claim cites, and it keeps the
+        panel in step with where you point, click or scroll on the page, all on your device. When the tab
+        moves to another page its panel closes, and no other page, in that tab or any other, is
+        read until you click the icon there. The extension declares no content script, and none of
+        a page's text leaves your device until you press Build tree.</li>
+      <li><strong>sidePanel</strong>: the extension's user interface is Chrome's side panel.</li>
+      <li><strong>storage</strong>: to keep the settings, keys and trees described above, locally.</li>
+    </ul>
+    <p>Requested later, only when you save a key for a provider, and only for that provider's
+      address: permission to contact that address, so the page text can be sent to the provider you
+      chose. Nothing is requested for any other site, and there is no blanket access to all sites.</p>
+
+    <h2>What the extension never does</h2>
+    <ul>
+      <li>It never sends page text, trees or keys anywhere but to the provider you configured.</li>
+      <li>It never reads a web page you have not clicked its icon on, never follows a tab to another
+        page without a new click, and never reads text you cannot see.</li>
+      <li>It never shares or publishes a tree; there are no public tree pages and no shared cache.</li>
+      <li>It never loads code from the internet; the model's answer is data, drawn by the extension's
+        own code.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>The extension is not directed at children and collects no data from anyone.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If the extension ever changes what leaves your device or what it stores, this page and the
+      Chrome Web Store listing are updated first, with the date above.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: open an issue at the project's repository, or email
+      <a href="mailto:studio.peach.go+pyramid-reader@gmail.com">studio.peach.go+pyramid-reader@gmail.com</a>.</p>
+  </main>
+  <footer>© 2026 Peach Studio · Pyramid Reader is open source under the MIT licence.</footer>
+</div>
+</body>
+</html>

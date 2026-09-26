@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Written for the tests. Paragraph text is built from DOM text nodes: whitespace collapses,
+     inline markup is transparent, hidden inline text and citation markers are dropped. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Text mapping cases</title>
+<style>
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  article { max-width: 640px; margin: 0 auto; padding: 16px 24px 800px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<article>
+  <h2>First   section</h2>
+  <p>
+    Whitespace   runs
+    collapse&nbsp;to single spaces, and <a href="#x">inline <em>markup</em> links</a> read straight through.
+  </p>
+  <p>The river is 12 km long<sup class="reference"><a href="#n1">[1]</a></sup> and drains an area of 40 km<sup>2</sup> in total.</p>
+  <h3>A subsection</h3>
+  <p>Read the full report <a href="#r">here<span class="sr-only"> (opens in a new tab)</span></a> before the council meets again.</p>
+  <p>Short one.</p>
+  <div style="height: 1200px"></div>
+  <p>A long paragraph for scrolling. The committee met on a Tuesday. It adjourned without a vote. The chair said the matter remains open and that no decision would be taken before the spring session, when the full cost estimate is due.</p>
+</article>
+</body>
+</html>

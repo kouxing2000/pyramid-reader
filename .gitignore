@@ -1,0 +1,33 @@
+node_modules/
+dist/
+*.zip
+test-results/
+playwright-report/
+eval/results/*/local/
+eval/results/*/run.lock
+.DS_Store
+.meta
+__pycache__/
+
+# Signing keys and packed builds (Chrome's "Pack extension" writes src.pem and src.crx), and
+# environment files: the eval reads provider keys from the environment.
+*.pem
+*.crx
+.env
+.env.*
+
+# Maintainer-local notes, never committed.
+docs/NEXT.md
+
+# What prototype/read.py writes: the page's text, the raw answer and the tree built from it.
+prototype/*.source.txt
+prototype/*.envelope.json
+prototype/*.tree.json
+docs/research/
+/design
+TODO.md
+
+# Generated store assets (regenerate with `npm run screenshots`); the listing drafts beside them
+# are tracked, and so is the one shot the script cannot take (a hand capture in real Chrome).
+store/screenshots/*
+!store/screenshots/05-read-in-chinese.png

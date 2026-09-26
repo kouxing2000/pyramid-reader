@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement to the tree, the checks, the panel or a provider
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The spec (`docs/SPEC.md`) is the contract, and its §4 principles are hard constraints:
+        checkable, hedge-preserving, no invented thesis, bring your own key with no server,
+        visible text only, nothing shared or cached server-side, value before the key. A request
+        that fits them is welcome; one that needs to break one is a discussion, not a feature.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: The need behind the request, not just the feature. What are you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How might it work? Mockups or examples welcome.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      description: Page text goes only to the provider the reader chose; nothing goes to the developer.
+      options:
+        - label: This request does not require tracking, telemetry, a server, or an always-on permission.
+          required: false

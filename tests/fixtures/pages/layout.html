@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Written for the tests. Ordinary layouts that overlap text without hiding it; every
+     KEEP-* paragraph must be extracted. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Layout cases</title>
+<style>
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  .masthead { position: sticky; top: 0; z-index: 10; height: 60px; background: #123; color: #fff; }
+  .cookie { position: fixed; left: 0; right: 0; bottom: 0; height: 80px; z-index: 20; background: #333; color: #fff; }
+  article { position: relative; max-width: 640px; margin: 0 auto; padding: 16px 24px 300px; }
+  .pull { float: right; position: relative; width: 220px; height: 160px; margin: 0 0 8px 16px; background: #fde; }
+  .deco { position: relative; }
+  .deco-bg { position: absolute; inset: -8px; z-index: -1; background: #eef; }
+  .share { position: absolute; right: 0; top: 0; width: 32px; height: 32px; background: #08f; }
+  .raised-wrap { position: relative; }
+  .low-box { position: absolute; inset: 0; z-index: 1; background: #eef; }
+  .raised { position: relative; z-index: 2; }
+  .card { position: relative; }
+  .card::before { content: ""; position: absolute; inset: 0; background: #f4f4f4; }
+  .card p { position: relative; }
+  .xcard { height: 80px; transform: translateZ(0); }
+  .xcard::after { content: ""; position: absolute; inset: 0; background: #fde; }
+  .scroller { height: 120px; overflow: auto; border: 1px solid #ccc; }
+  .scroller p { margin: 0 0 80px; }
+  .tall { height: 900px; }
+  /* A closed drawer: its menu's backdrop pseudo-element belongs to a box that is not rendered. */
+  .menu::before { content: ""; position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, 0.6); }
+</style>
+</head>
+<body>
+<div class="masthead">Masthead</div>
+<nav style="display: none"><ul class="menu"><li>Home</li></ul></nav>
+<article>
+  <figure class="pull"></figure>
+  <p>KEEP-float wraps around a floated, relatively positioned pull-quote box on its right side. The text flows beside the box and then continues under it, so every word of it stays readable to the reader even though the box overlaps the paragraph's own rectangle by a wide margin. That overlap is layout, not an overlay. More words keep the paragraph going so that it spans several lines next to the floated box and beyond.</p>
+  <div class="deco"><div class="deco-bg"></div><p>KEEP-deco has a painted decorative layer positioned behind it with a negative z-index.</p></div>
+  <div style="position: relative"><div class="share"></div><p>KEEP-share has a small share button absolutely positioned near its top right corner.</p></div>
+  <div class="raised-wrap"><div class="low-box"></div><div class="raised"><p>KEEP-raised sits in a stacking context raised above a painted box behind it.</p></div></div>
+  <div class="card"><p>KEEP-card is positioned text over its card's painted ::before background layer.</p></div>
+  <div class="scroller">
+    <p>KEEP-scroll-1 is the first paragraph inside a small scrollable container box.</p>
+    <p>KEEP-scroll-2 is below that container's fold but the reader can scroll to it.</p>
+    <p>KEEP-scroll-3 is further down inside the same scrollable container element.</p>
+  </div>
+  <p>KEEP-under-cookie sits where the fixed cookie bar covers it at this scroll position.</p>
+  <div class="tall"></div>
+  <div class="xcard"></div>
+  <p>KEEP-last is the final paragraph, far down the page below a tall spacer block.</p>
+</article>
+<div class="cookie">We use cookies.</div>
+</body>
+</html>

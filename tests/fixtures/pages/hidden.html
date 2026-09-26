@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- Written for the tests. Every paragraph names its own expected fate: VISIBLE-* must be
+     extracted; HIDDEN-*, CLIPPED-*, COVERED-* must not be. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hidden text cases</title>
+<style>
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #fff; }
+  article { max-width: 640px; margin: 0 auto; padding: 16px 24px 400px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .offscreen { position: absolute; left: -9999px; top: 0; width: 400px; }
+  .truncated { max-height: 100px; overflow: hidden; margin-bottom: 16px; }
+  .truncated p { margin: 0 0 120px; }
+  .scroll-box { height: 60px; overflow: auto; }
+  .scroll-box p { margin: 0 0 40px; }
+  .gate { position: relative; }
+  .gate-overlay { position: absolute; inset: 0; z-index: 3; background: #fff; }
+  /* Covers the last of four lines: a quarter of the paragraph, all of one line. */
+  .tail-overlay { position: absolute; left: 0; right: 0; bottom: 0; height: 1.5em; z-index: 3; background: #fff; }
+  .tail { margin: 0; }
+  .fade-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.6), #fff); }
+  .xform-gate { transform: translateZ(0); }
+  .xform-gate::after { content: ""; position: absolute; inset: 0; background: #fff; }
+  .pseudo-gate { position: relative; }
+  .pseudo-gate::after { content: ""; position: absolute; inset: 0; z-index: 2; background: #fff; }
+  .gradient-text { background: linear-gradient(90deg, #c00, #00c); background-clip: text; -webkit-background-clip: text; color: transparent; }
+</style>
+</head>
+<body>
+<article>
+  <p>VISIBLE-1 is an ordinary paragraph in the flow of the article, long enough to count.</p>
+  <p style="display: none">HIDDEN-display is removed from rendering with display none entirely.</p>
+  <p style="visibility: hidden">HIDDEN-visibility keeps its box but is not painted at all here.</p>
+  <div style="opacity: 0"><p>HIDDEN-opacity sits inside a fully transparent container element.</p></div>
+  <p hidden>HIDDEN-attribute uses the hidden attribute that the user agent styles away.</p>
+  <details><summary>More</summary><p>HIDDEN-details is inside a closed details element the reader never opened.</p></details>
+  <p class="offscreen">CLIPPED-offscreen is positioned far off the left edge of the document.</p>
+  <p class="sr-only">HIDDEN-sronly is screen-reader-only text clipped down to a single pixel.</p>
+  <p style="filter: blur(6px)">HIDDEN-blur is rendered but blurred until it cannot be read by anyone.</p>
+  <p style="color: transparent">HIDDEN-transparent is laid out but drawn in a fully transparent colour.</p>
+  <p class="gradient-text">VISIBLE-2 is gradient text: a transparent colour with the background painted through it.</p>
+
+  <div class="truncated">
+    <p>VISIBLE-3 is the first paragraph of a truncated preview and it still fits the box.</p>
+    <p>CLIPPED-1 lies entirely below the clipped preview box and the reader cannot see it.</p>
+  </div>
+  <div class="truncated">
+    <div style="overflow: auto">
+      <p>VISIBLE-4 is in a truncated preview whose content sits in a clearfix wrapper box.</p>
+      <p>CLIPPED-2 is below the cut of that preview, inside a wrapper that has nothing to scroll.</p>
+    </div>
+  </div>
+  <div class="truncated">
+    <div class="scroll-box">
+      <p>VISIBLE-5 is inside a small scrolling box that itself sits within the preview.</p>
+      <p>VISIBLE-6 is below that scrolling box's fold, and the reader can scroll to it.</p>
+    </div>
+    <div class="scroll-box" style="margin-top: 60px">
+      <p>CLIPPED-3 is in a scrolling box that lies wholly below the preview's cut-off line.</p>
+      <p>CLIPPED-4 is the second paragraph of that unreachable scrolling box, also hidden.</p>
+    </div>
+  </div>
+  <p style="max-height: 1.5em; overflow: hidden">CLIPPED-5 is a teaser paragraph clipped by its own box to a single line, so everything after the first line of it is hidden from the reader even though it is laid out in full underneath.</p>
+  <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden">CLIPPED-6 is line-clamped to one line, so the reader sees an ellipsis and none of the rest of this long paragraph, which keeps going for a second and a third line.</p>
+
+  <div class="gate">
+    <p>COVERED-1 sits under an opaque paywall overlay that is painted on top of it.</p>
+    <p>COVERED-2 is the second paragraph hidden under that same opaque overlay layer.</p>
+    <div class="gate-overlay"></div>
+  </div>
+  <div class="gate">
+    <p>COVERED-3 sits under a gradient fade that paints the paywall's white-out over it.</p>
+    <div class="fade-overlay"></div>
+  </div>
+  <div class="gate">
+    <p class="tail">COVERED-4 is a teaser whose last line is under an opaque overlay: its first lines are readable, but the line below them is painted over by the paywall box, and a paragraph with a hidden tail must not be read in full, however small that tail is compared with the rest of the paragraph. It keeps going onto a last line that the overlay hides.</p>
+    <div class="tail-overlay"></div>
+  </div>
+  <div class="gate">
+    <p>COVERED-6 is under an overlay that escapes the empty clipping wrapper it sits in.</p>
+    <div style="overflow: hidden"><div class="gate-overlay"></div></div>
+  </div>
+  <div class="xform-gate">
+    <p>COVERED-7 is under a white-out whose containing block is its transformed container.</p>
+  </div>
+  <div class="pseudo-gate">
+    <p>COVERED-5 sits under a white-out drawn by its container's ::after pseudo-element.</p>
+  </div>
+  <p>VISIBLE-7 closes the page as an ordinary paragraph after all of the hidden cases.</p>
+</article>
+</body>
+</html>

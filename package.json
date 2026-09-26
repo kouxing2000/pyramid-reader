@@ -1,0 +1,30 @@
+{
+  "name": "pyramid-reader",
+  "version": "0.0.3",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kouxing2000/pyramid-reader.git"
+  },
+  "homepage": "https://github.com/kouxing2000/pyramid-reader#readme",
+  "bugs": {
+    "url": "https://github.com/kouxing2000/pyramid-reader/issues"
+  },
+  "description": "Dev tooling for the Pyramid Reader Chrome extension. The shipped extension (src/) is zero-dependency vanilla JS; devDependencies are test tooling only and are never bundled into it.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test \"tests/unit/**/*.test.js\"",
+    "test:e2e": "playwright test",
+    "test:headed": "playwright test --headed",
+    "package": "node scripts/package.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 128 128">
+<!-- Pyramid Reader's icon: a summary in levels. The headline is cut out of the bubble; the two
+     detail lines are half filled back in: there, not yet said. 128-unit canvas, motif inside
+     16..112 (the tail reaches 114), i.e. Chrome's store icon with its 16 px transparent padding.
+     src/icons/icon48.png and icon128.png are this file rendered at 48 and 128 px; icon16.png and
+     icon32.png are rendered from viewBox "13 13 102 102" (a tight crop, so the toolbar motif is
+     not 12 px wide). The panel header (src/panel/panel.html) draws the same paths in currentColor. -->
+<!-- the bubble, with the three lines cut out of it -->
+<path fill="#5580f2" fill-rule="evenodd" d="M34 16H94A18 18 0 0 1 112 34V80A18 18 0 0 1 94 98H58L32 114L35 98H34A18 18 0 0 1 16 80V34A18 18 0 0 1 34 16Z M34 30H94A4 4 0 0 1 98 34V44A4 4 0 0 1 94 48H34A4 4 0 0 1 30 44V34A4 4 0 0 1 34 30Z M49 58H95A3 3 0 0 1 98 61V67A3 3 0 0 1 95 70H49A3 3 0 0 1 46 67V61A3 3 0 0 1 49 58Z M49 76H79A3 3 0 0 1 82 79V85A3 3 0 0 1 79 88H49A3 3 0 0 1 46 85V79A3 3 0 0 1 49 76Z"/>
+<!-- the headline stays fully cut out; the detail lines are half filled back in: there, not yet said -->
+<g fill="#5580f2" opacity="0.55">
+  <path d="M49 58H95A3 3 0 0 1 98 61V67A3 3 0 0 1 95 70H49A3 3 0 0 1 46 67V61A3 3 0 0 1 49 58Z"/>
+  <path d="M49 76H79A3 3 0 0 1 82 79V85A3 3 0 0 1 79 88H49A3 3 0 0 1 46 85V79A3 3 0 0 1 49 76Z"/>
+</g>
+</svg>

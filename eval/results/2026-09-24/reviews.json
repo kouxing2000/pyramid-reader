@@ -1,0 +1,676 @@
+{
+ "reviewer": "Claude Opus 5.5, 2026-09-24",
+ "rule": "flags: \"flip\" when the verdict or claim title is more certain than the paragraphs it cites (a hedge dropped, an open question answered, a forecast or one party's claim stated as fact), even when the flagged sentence is not the one it overstates (the note says which); \"false-positive\" otherwise. passes: \"flip\" when an unflagged verdict or title overstates its cited text in that way, else \"kept\". Unsupported wording that is not a certainty change is noted but is not a flip.",
+ "flags": {
+  "claude-cli-haiku|01dc9dfb64ea|b0|¶25:0": {
+   "verdict": "false-positive",
+   "note": "\"could\" is ability (he could outdo the novelists on science); his skill as a curator is stated plainly."
+  },
+  "claude-cli-haiku|07698e7c842c|b0|¶20:0": {
+   "verdict": "false-positive",
+   "note": "Title keeps a possibility hedge (\"suggest a possible\"); the source pairs \"too early to say\" with \"it is possible\", the same level."
+  },
+  "claude-cli-haiku|0aac70ada25a|b1|¶23:39": {
+   "verdict": "false-positive",
+   "note": "The strategy is stated plainly in the cited paragraphs; \"could\" there is about the leverage China might gain, which the title does not claim."
+  },
+  "claude-cli-haiku|0aac70ada25a|verdict|¶16:0": {
+   "verdict": "flip",
+   "note": "The source calls what \"winning\" means unclear; the verdict states as fact that the two sides define winning differently."
+  },
+  "claude-cli-haiku|2d103bafa2df|verdict|¶23:0": {
+   "verdict": "false-positive",
+   "note": "\"suggest\" hedges the size of the funding estimate, which the verdict does not state; \"threaten\" is already a risk, not an outcome."
+  },
+  "claude-cli-haiku|3e772b3a1bb0|b0|¶15:0": {
+   "verdict": "false-positive",
+   "note": "The early idea is reported as a claim that was later refuted, as the source does; the refutation is stated plainly there."
+  },
+  "claude-cli-haiku|631c90f94777|b3|¶3:0": {
+   "verdict": "false-positive",
+   "note": "The dispute is how many bog bodies exist; the title speaks of the documented count, which the recent study gives."
+  },
+  "claude-cli-haiku|66e1c9fb85df|b1|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered, not uncertain."
+  },
+  "claude-cli-haiku|66e1c9fb85df|verdict|¶28:665": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps the purpose \"debated among scholars\"."
+  },
+  "claude-cli-haiku|85325a44fcde|verdict|¶1:104": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"unexplained circumstances\" and the inquiry's \"most likely\"."
+  },
+  "claude-cli-haiku|8ea0abe7962f|b0|¶6:33": {
+   "verdict": "flip",
+   "note": "The source forecasts with \"likely\" and \"probably\" and allows \"may be some tweaking\"; the title says the talks \"will\" focus on tweaks."
+  },
+  "claude-cli-haiku|a2708d97c646|b1|¶8:239": {
+   "verdict": "false-positive",
+   "note": "\"uncertainty\" is the patients' uncertainty about treatment, not doubt about the disruption, which research is cited as finding."
+  },
+  "claude-cli-haiku|a5c312154421|b2|¶15:379": {
+   "verdict": "flip",
+   "note": "New traits are backed plainly by the moth case, but the title also says transposons created regulatory mechanisms, which the source gives as \"may have\" and as one model among others."
+  },
+  "claude-cli-haiku|ac99cea0d97b|b3|¶10:112": {
+   "verdict": "flip",
+   "note": "One speaker's judgment (\"unlikely\", \"suspected\" limited cooperation) is stated as the tree's own fact about the obstacles."
+  },
+  "claude-cli-haiku|beb273966e76|b0|¶11:0": {
+   "verdict": "false-positive",
+   "note": "\"would have\" keeps the projection conditional, as \"suggests ... would be\" does. The title garbles the result (the seat lead is not narrow), a faithfulness slip rather than a lost hedge."
+  },
+  "claude-cli-haiku|beb273966e76|b2|¶5:0": {
+   "verdict": "flip",
+   "note": "The source says the poll results \"suggest\" voters are beginning to return, motive included; the title states the shift and its motive as fact."
+  },
+  "claude-cli-haiku|cbef9f44e996|b1|¶21:0": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"proposed\" and \"hypothesis\"."
+  },
+  "claude-cli-haiku|d7efeb49eed5|b0|¶4:0": {
+   "verdict": "false-positive",
+   "note": "\"likely\" carries the consensus hedge of \"is thought to\"; the lexicon ranks the two apart, plain English does not."
+  },
+  "claude-cli-haiku|d86c256fa093|b3|¶42:0": {
+   "verdict": "false-positive",
+   "note": "The title itself says major uncertainties remain; the lexicon does not read the plural \"uncertainties\"."
+  },
+  "claude-cli-haiku|e141765bfad8|b0|¶13:348": {
+   "verdict": "false-positive",
+   "note": "\"consistent with\" matches the source's plain statement that all the expected characteristics are present."
+  },
+  "claude-cli-haiku|e81d75eb9176|verdict|¶2:240": {
+   "verdict": "flip",
+   "note": "The source gives the explosion altitude as what the object \"is thought to\" have done, and attributes the event to an air burst; the verdict states both as fact."
+  },
+  "claude-cli-haiku|ec84f9839dfc|b0|¶10:0": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"could reduce\"; \"uncertainty\" in the source is exporters' business uncertainty."
+  },
+  "claude-cli-haiku|ec84f9839dfc|b3|¶16:0": {
+   "verdict": "false-positive",
+   "note": "The reported controls back the isolation claim; \"could\" is about the other factors."
+  },
+  "claude-cli-haiku|f223e118e55a|b1|¶15:144": {
+   "verdict": "false-positive",
+   "note": "Inconsistent results that depend on the setup are stated plainly in the cited paragraphs (random variation, container effects, failed replications)."
+  },
+  "claude-cli-sonnet|158afdc2a5c8|b1|¶16:1123": {
+   "verdict": "false-positive",
+   "note": "Poor construction and steel half as thick as needed are stated plainly; \"apparently\" covers only the rivets."
+  },
+  "claude-cli-sonnet|21ffdbbeeed9|verdict|¶1:430": {
+   "verdict": "flip",
+   "note": "The named \"could\" is fine, but the verdict says he died of a beating-related infection where the source says the wound \"may have been caused\" by the beating."
+  },
+  "claude-cli-sonnet|3e772b3a1bb0|verdict|¶4:395": {
+   "verdict": "flip",
+   "note": "Attributed, but the scientist's hedge is dropped: he \"proposes\" life \"might be imitating\" quantum effects; the verdict has him argue it comes from classical networks."
+  },
+  "claude-cli-sonnet|456fca900570|b4|¶29:313": {
+   "verdict": "false-positive",
+   "note": "\"can also have positive effects\" keeps the possibility the source gives with \"may be beneficial\"; the phase framing is not made more certain."
+  },
+  "claude-cli-sonnet|5fa56dff45eb|b3|¶25:0": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"unknown\" for the cause; \"linked to\" family history matches \"more likely\"."
+  },
+  "claude-cli-sonnet|66e1c9fb85df|b1|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered, not uncertain."
+  },
+  "claude-cli-sonnet|66e1c9fb85df|verdict|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered; the verdict keeps the purpose \"debated\"."
+  },
+  "claude-cli-sonnet|8324c24fac73|verdict|¶11:0": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"experts say\" and renders \"suggests little has changed\" as \"looks unchanged\": same certainty."
+  },
+  "claude-cli-sonnet|ec84f9839dfc|b0|¶10:0": {
+   "verdict": "false-positive",
+   "note": "\"uncertainty\" is exporters' business uncertainty; the loss without a deal is stated plainly in the article's own voice."
+  },
+  "claude-cli-sonnet|ec84f9839dfc|b3|¶16:0": {
+   "verdict": "false-positive",
+   "note": "Attributed (\"The IPPR says\"); \"could\" is about the other factors."
+  },
+  "gemini-3.5-flash-lite|01dc9dfb64ea|b1|¶25:0": {
+   "verdict": "false-positive",
+   "note": "\"could\" in the source is ability (the curator was able to outdo other novelists on science), not doubt."
+  },
+  "gemini-3.5-flash-lite|01dc9dfb64ea|b2|¶30:600": {
+   "verdict": "false-positive",
+   "note": "The source's \"arguably the first\" is softened to \"an early\" dinosaur. \"uniquely\" is unsupported wording, but not a lost hedge on the same claim."
+  },
+  "gemini-3.5-flash-lite|108cba0aa24d|verdict|¶1:0": {
+   "verdict": "false-positive",
+   "note": "The verdict reports the questions raised, as the source does; it asserts no role for the weapon."
+  },
+  "gemini-3.5-flash-lite|19d36e0be374|verdict|¶2:0": {
+   "verdict": "false-positive",
+   "note": "The flagged \"might\" is the headlines' two-brains claim, which the verdict rejects, as the article plainly does."
+  },
+  "gemini-3.5-flash-lite|4e427a10f1f1|b4|¶35:366": {
+   "verdict": "flip",
+   "note": "The title lists migration and invention as effects of the cold year; the cited text gives both only as \"may have\" (shaped settlement, inspired the inventor)."
+  },
+  "gemini-3.5-flash-lite|66e1c9fb85df|b1|¶28:665": {
+   "verdict": "false-positive",
+   "note": "A bucket title (\"Theories regarding ...\") asserts nothing, so it cannot overstate; it breaks the prompt's claim rule instead."
+  },
+  "gemini-3.5-flash-lite|66e1c9fb85df|verdict|¶28:665": {
+   "verdict": "flip",
+   "note": "The named meanings clause is fine (\"interpreted variously\"), but the verdict calls the construction methods \"well-understood\" where the source says scholars theorized they \"could have\" used simple tools."
+  },
+  "gemini-3.5-flash-lite|689ded5651e8|b1|¶27:87": {
+   "verdict": "flip",
+   "note": "The source reports evidence of the \"possibility\" of maternal transmission; the title says maternal routes \"exist\"."
+  },
+  "gemini-3.5-flash-lite|7a2ce50c9630|b1|¶13:524": {
+   "verdict": "false-positive",
+   "note": "A bucket title with no claim about when the crash happened."
+  },
+  "gemini-3.5-flash-lite|7a2ce50c9630|verdict|¶3:462": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps the dispute: severity and impact \"remain heavily contested\"."
+  },
+  "gemini-3.5-flash-lite|96a0c0d2abcf|b1|¶11:123": {
+   "verdict": "false-positive",
+   "note": "\"widespread acceptance\" is what the source says of dark matter's existence; the doubt is about what it is, which the title does not address."
+  },
+  "gemini-3.5-flash-lite|a664950dee1c|b1|¶7:0": {
+   "verdict": "false-positive",
+   "note": "\"likely\" hedges the form the safeguards would take (quotas), which the title does not mention."
+  },
+  "gemini-3.5-flash-lite|ac99cea0d97b|b0|¶5:0": {
+   "verdict": "flip",
+   "note": "Attribution is kept, but the speaker's own hedges go: he called it \"perhaps\" accidentally self-serving and said it \"slightly\" paralyses debate; the title has him argue both flatly."
+  },
+  "gemini-3.5-flash-lite|d86c256fa093|b0|¶24:0": {
+   "verdict": "false-positive",
+   "note": "The direction follows from the cited plain sentences (sulphur offsets warming, its emissions are falling); \"may\" hedges the size of the effect, which the title does not state."
+  },
+  "gemini-3.5-flash-lite|ec84f9839dfc|b0|¶4:0": {
+   "verdict": "false-positive",
+   "note": "\"estimates\" keeps the figure an estimate; the range is the source's."
+  },
+  "gemini-3.5-flash-lite|ec84f9839dfc|b2|¶16:0": {
+   "verdict": "false-positive",
+   "note": "\"could\" is about the other factors that might explain falling exports, not about whether the study isolated them."
+  },
+  "gemini-3.5-flash-lite|ec84f9839dfc|verdict|¶2:0": {
+   "verdict": "false-positive",
+   "note": "\"up to\" carries the source's ceiling (\"could be worth as much as\")."
+  },
+  "gemini-3.5-flash-lite|f5b5a0acff72|verdict|¶1:0": {
+   "verdict": "false-positive",
+   "note": "\"holding a summit ... to discuss\" states the agenda's purpose, as \"expected to discuss\" does; nothing is said about what was agreed."
+  },
+  "gemini-3.5-flash-lite|f90b3c6aa43a|b2|¶22:299": {
+   "verdict": "false-positive",
+   "note": "\"can accumulate\" keeps the source's \"can add up\"; the title gives no figure."
+  },
+  "gemini-3.8-flash|07698e7c842c|b1|¶20:0": {
+   "verdict": "false-positive",
+   "note": "Title hedges twice (\"suggests ... might have been\"), the level of the source's \"it is possible\"."
+  },
+  "gemini-3.8-flash|164d082509b5|verdict|¶3:448": {
+   "verdict": "false-positive",
+   "note": "The flagged doubt is the find's significance before 1953, which the verdict matches. \"sole forger\" goes beyond the cited text, a faithfulness slip rather than a lost hedge."
+  },
+  "gemini-3.8-flash|19d36e0be374|b0|¶2:0": {
+   "verdict": "false-positive",
+   "note": "The \"might\" is the headlines' claim, which the title says they got wrong, as the article states plainly."
+  },
+  "gemini-3.8-flash|21ffdbbeeed9|b0|¶14:64": {
+   "verdict": "false-positive",
+   "note": "\"unknown\" says the material was unidentified, not that the conclusion was uncertain."
+  },
+  "gemini-3.8-flash|25bf51964697|b0|¶13:0": {
+   "verdict": "false-positive",
+   "note": "\"could\" is ability: such questions could be scored quickly."
+  },
+  "gemini-3.8-flash|2e483cab0200|b1|¶12:156": {
+   "verdict": "false-positive",
+   "note": "The doubt is whether the benefit comes from omega-3s or from the food; the title keeps it for supplements, and the seafood benefit is stated plainly in the cited text."
+  },
+  "gemini-3.8-flash|2e483cab0200|verdict|¶12:156": {
+   "verdict": "false-positive",
+   "note": "\"remains mixed\" keeps the source's doubt; the lexicon does not read \"mixed\" as a hedge."
+  },
+  "gemini-3.8-flash|33f02ffca780|verdict|¶6:388": {
+   "verdict": "false-positive",
+   "note": "Cause and toll \"remain subject to historical debate\": the hedge is kept in words the lexicon does not list."
+  },
+  "gemini-3.8-flash|4b1602d41d39|b3|¶23:191": {
+   "verdict": "false-positive",
+   "note": "\"could\" is ability (colour could run on a gradient), not doubt."
+  },
+  "gemini-3.8-flash|4e427a10f1f1|b1|¶15:545": {
+   "verdict": "false-positive",
+   "note": "\"unknown\" is what people at the time knew of the cause; the famine itself is stated plainly."
+  },
+  "gemini-3.8-flash|4e427a10f1f1|b4|¶34:0": {
+   "verdict": "flip",
+   "note": "The title says the crisis \"spurred\" transport inventions; the source says the oat shortage \"may have\" inspired the inventor."
+  },
+  "gemini-3.8-flash|66e1c9fb85df|b2|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered, not uncertain; the finds are stated plainly."
+  },
+  "gemini-3.8-flash|66e1c9fb85df|verdict|¶19:0": {
+   "verdict": "flip",
+   "note": "The named sentence is a false match (\"previously unknown\" means undiscovered), but the verdict says the lines' purposes are \"increasingly understood\" where the cited text says scholars differ and many meanings remain unknown."
+  },
+  "gemini-3.8-flash|8332617b852f|b0|¶2:230": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"thought\" extinct."
+  },
+  "gemini-3.8-flash|85325a44fcde|b1|¶1:104": {
+   "verdict": "false-positive",
+   "note": "\"could not be explained\" is inability, and it agrees with the source's undetermined circumstances."
+  },
+  "gemini-3.8-flash|85325a44fcde|verdict|¶1:104": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"most likely\" for the avalanche explanation, the level of the 2020 official conclusion it cites."
+  },
+  "gemini-3.8-flash|96a0c0d2abcf|b0|¶3:191": {
+   "verdict": "false-positive",
+   "note": "The source's next sentence states plainly that dark matter does not absorb, reflect or emit light; \"about 27%\" keeps the estimate approximate."
+  },
+  "gemini-3.8-flash|9b5eb49e1849|b3|¶29:92": {
+   "verdict": "false-positive",
+   "note": "The title states a published finding as the article reports it; the \"may\" sits inside the definition of the threshold."
+  },
+  "gemini-3.8-flash|9b5eb49e1849|b4|¶32:0": {
+   "verdict": "flip",
+   "note": "The source says operating costs \"will likely\" rise; the title says spaceflight \"will face\" escalating costs."
+  },
+  "gemini-3.8-flash|ac99cea0d97b|b0|¶5:0": {
+   "verdict": "flip",
+   "note": "One speaker's hedged opinion (\"perhaps ... self-serving\") becomes the tree's own unhedged claim that the warnings are exaggerated."
+  },
+  "gemini-3.8-flash|ac99cea0d97b|b2|¶10:112": {
+   "verdict": "flip",
+   "note": "One speaker's judgment (\"unlikely\", \"suspected\" limited cooperation) is stated as a fact about the world, with no attribution."
+  },
+  "gemini-3.8-flash|cbef9f44e996|b3|¶24:0": {
+   "verdict": "false-positive",
+   "note": "The title keeps the disagreement; \"Perhaps\" in the source ranks one proponent's influence, which the title does not address."
+  },
+  "gemini-3.8-flash|d7efeb49eed5|b4|¶26:164": {
+   "verdict": "flip",
+   "note": "The contested nitrate evidence is kept, but the size comparison the source only \"suggest[s]\" from carbon-14 becomes proxies that \"reveal\" larger storms."
+  },
+  "gemini-3.8-flash|e141765bfad8|b0|¶1:222": {
+   "verdict": "false-positive",
+   "note": "The source states plainly that all the expected characteristics are present; \"appeared to\" concerns the direction, which the title does not state."
+  },
+  "gemini-3.8-flash|e141765bfad8|b1|¶14:0": {
+   "verdict": "false-positive",
+   "note": "\"unable to determine the precise origin\" says the location is uncertain, in words the lexicon does not read."
+  },
+  "gemini-3.8-flash|ec84f9839dfc|b0|¶10:0": {
+   "verdict": "false-positive",
+   "note": "\"uncertainty\" in the source is exporters' business uncertainty, not doubt about the claim; the title keeps \"an estimated\"."
+  },
+  "gemini-3.8-flash|f90b3c6aa43a|b2|¶22:299": {
+   "verdict": "false-positive",
+   "note": "\"can undermine\" keeps the source's \"can add up\" and \"could be\"."
+  },
+  "gemini-3.8-flash|fedc17d74b80|b3|¶24:292": {
+   "verdict": "false-positive",
+   "note": "\"uncertainty\" is the child's (a question resolved too fast), not doubt about the claim; the essay argues the point plainly."
+  },
+  "gpt-5.4-mini|07698e7c842c|b2|¶16:0": {
+   "verdict": "flip",
+   "note": "The cause stays \"unclear\", but the title says the footage \"shows\" flames that then disappear, where the source says it appears to show them and they \"seem to\" disappear."
+  },
+  "gpt-5.4-mini|07698e7c842c|verdict|¶20:0": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"suggest\" and \"not yet\", the level of the source's \"too early to say\" and \"possible\"."
+  },
+  "gpt-5.4-mini|0aac70ada25a|b2|¶23:39": {
+   "verdict": "false-positive",
+   "note": "The strategy and advantages are stated plainly in the cited text; \"could\" concerns the leverage China might gain."
+  },
+  "gpt-5.4-mini|108cba0aa24d|b1|¶8:0": {
+   "verdict": "false-positive",
+   "note": "\"most likely candidates\" keeps the expert's \"I would expect\"; attribution is dropped but certainty is not raised."
+  },
+  "gpt-5.4-mini|164d082509b5|b3|¶24:1650": {
+   "verdict": "false-positive",
+   "note": "The title keeps both sides: investigations pointed \"mainly\" to Dawson, and accomplices \"have been proposed\"."
+  },
+  "gpt-5.4-mini|164d082509b5|verdict|¶3:448": {
+   "verdict": "false-positive",
+   "note": "\"linked chiefly\" to Dawson leaves room for the accomplice theories; the flagged doubt concerns the find before 1953, which the verdict matches."
+  },
+  "gpt-5.4-mini|21ffdbbeeed9|verdict|¶1:430": {
+   "verdict": "false-positive",
+   "note": "\"could be drastically reduced\" is what he demonstrated could be done; the drop in deaths is stated plainly in the same paragraph."
+  },
+  "gpt-5.4-mini|2e483cab0200|verdict|¶12:156": {
+   "verdict": "false-positive",
+   "note": "\"mixed evidence\" keeps the doubt about where the benefits come from."
+  },
+  "gpt-5.4-mini|4e427a10f1f1|b4|¶34:0": {
+   "verdict": "flip",
+   "note": "The title says the event left traces in invention (and migration); the cited text gives the inventor's inspiration and the settlement shift only as \"may have\"."
+  },
+  "gpt-5.4-mini|520246ce54c2|verdict|¶4:385": {
+   "verdict": "false-positive",
+   "note": "The \"disputed\" sentence is about the theft accusation; the verdict keeps \"experts say\" and \"may\". The started talks are stated plainly elsewhere on the page."
+  },
+  "gpt-5.4-mini|59da3a9aed31|verdict|¶6:0": {
+   "verdict": "false-positive",
+   "note": "\"may be costing taxpayers more\" keeps the unknown cost as a possibility."
+  },
+  "gpt-5.4-mini|66e1c9fb85df|b1|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered, not uncertain."
+  },
+  "gpt-5.4-mini|66e1c9fb85df|verdict|¶28:665": {
+   "verdict": "false-positive",
+   "note": "\"exact meaning remains debated\" keeps the source's unknown meanings."
+  },
+  "gpt-5.4-mini|6c1be7c70e89|b1|¶46:149": {
+   "verdict": "false-positive",
+   "note": "\"not sure\" describes blinded trial subjects, not doubt about the claim."
+  },
+  "gpt-5.4-mini|76a4a5f734a0|b0|¶37:0": {
+   "verdict": "flip",
+   "note": "The motive is hedged and disputed in the source (to some it looks like a response, \"perhaps\", to the backlash; Meta denies it); the title states it as fact."
+  },
+  "gpt-5.4-mini|796372b84faf|b1|¶8:187": {
+   "verdict": "false-positive",
+   "note": "\"likely\" matches \"is thought to\", and the title adds that the disappearance \"remains debated\"."
+  },
+  "gpt-5.4-mini|8324c24fac73|verdict|¶11:0": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"experts say\"; \"suggests\" concerns how the top-line figure looks, which the verdict matches with \"largely intact\"."
+  },
+  "gpt-5.4-mini|96a0c0d2abcf|b3|¶21:78": {
+   "verdict": "false-positive",
+   "note": "The title says scientists do not know what dark matter is, an open statement the lexicon does not read (\"do not know\")."
+  },
+  "gpt-5.4-mini|c9d9ddb0e094|b2|¶21:532": {
+   "verdict": "false-positive",
+   "note": "The later outbreak under another name is stated as confirmed in the cited text; the \"possibility\" concerns other cases the title does not mention."
+  },
+  "gpt-5.4-mini|d86c256fa093|b3|¶42:0": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"may imply\"."
+  },
+  "gpt-5.4-mini|ec84f9839dfc|b3|¶16:0": {
+   "verdict": "false-positive",
+   "note": "Attributed (\"the report says\"); \"could\" is about the other possible causes."
+  },
+  "gpt-5.4-mini|ec84f9839dfc|verdict|¶10:0": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"the IPPR says\" and \"may be losing up to\"; \"uncertainty\" in the source is exporters' business uncertainty."
+  },
+  "gpt-5.4-mini|f5b5a0acff72|verdict|¶4:0": {
+   "verdict": "false-positive",
+   "note": "\"are meeting ... to try to ease trade tensions\" matches the scheduled talks and the sides' stated aim; the overstated part is the other flag's."
+  },
+  "gpt-5.4-mini|f5b5a0acff72|verdict|¶8:0": {
+   "verdict": "flip",
+   "note": "The source says the visit is \"likely\" to touch on Iran and that China is \"expected\" to raise Taiwan; the verdict says they are discussing both, a forecast stated as fact."
+  },
+  "gpt-5.5|158afdc2a5c8|b1|¶7:90": {
+   "verdict": "false-positive",
+   "note": "\"impossible to tell\" is a witness unable to tell people from animals in the molasses, not doubt about the damage."
+  },
+  "gpt-5.5|2e483cab0200|b4|¶26:166": {
+   "verdict": "false-positive",
+   "note": "\"may be best\" is the fact sheet's advice to ask a doctor, not doubt about how the article frames intake."
+  },
+  "gpt-5.5|456fca900570|b4|¶29:496": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"could matter\" and \"possible benefits\"."
+  },
+  "gpt-5.5|657aa651aedc|b1|¶9:291": {
+   "verdict": "false-positive",
+   "note": "The title keeps \"can make\"; the retrofit cost the source hedges with \"could\" becomes \"depend on ... future rules\", no more certain."
+  },
+  "gpt-5.5|66e1c9fb85df|b3|¶19:0": {
+   "verdict": "false-positive",
+   "note": "\"previously unknown\" means undiscovered, not uncertain."
+  },
+  "gpt-5.5|6c1be7c70e89|b1|¶46:149": {
+   "verdict": "false-positive",
+   "note": "\"not sure\" describes blinded trial subjects, not doubt about the claim."
+  },
+  "gpt-5.5|7a2ce50c9630|b0|¶13:781": {
+   "verdict": "false-positive",
+   "note": "The title hedges with \"apparently\" where the source states plainly that the fallout was very limited; \"uncertain\" in the source is the growers' situation."
+  },
+  "gpt-5.5|7e2409d0186b|b2|¶14:258": {
+   "verdict": "false-positive",
+   "note": "The title keeps it a \"hypothesis\", attributed, and reports its rejection as the source does."
+  },
+  "gpt-5.5|9b5eb49e1849|b3|¶28:0": {
+   "verdict": "false-positive",
+   "note": "\"Experts are not saying ... is imminent\" restates the source; the title keeps \"may\" for the vulnerable bands."
+  },
+  "gpt-5.5|a664950dee1c|b1|¶7:0": {
+   "verdict": "false-positive",
+   "note": "\"likely\" hedges the form of the safeguards (quotas), which the title does not state."
+  },
+  "gpt-5.5|ac99cea0d97b|b0|¶5:0": {
+   "verdict": "false-positive",
+   "note": "Attributed (\"Clegg said\"), and \"can be self-serving\" keeps his \"perhaps\" as a possibility."
+  },
+  "gpt-5.5|c9d9ddb0e094|b0|¶10:677": {
+   "verdict": "false-positive",
+   "note": "The known case: \"a possible source\" is hedged by the adjective, which the lexicon does not read, and the paragraph resolves Soper's early doubt in its next clause."
+  },
+  "gpt-5.5|ec84f9839dfc|verdict|¶10:0": {
+   "verdict": "false-positive",
+   "note": "The verdict keeps \"estimates\" and \"may be losing\"; \"uncertainty\" in the source is exporters' business uncertainty."
+  },
+  "gpt-5.5|f5b5a0acff72|verdict|¶8:0": {
+   "verdict": "false-positive",
+   "note": "The whole verdict sits under \"is expected to\", which covers the topics the source says the visit is likely to touch on."
+  }
+ },
+ "passes": {
+  "claude-cli-haiku|631c90f94777|b0": {
+   "verdict": "kept",
+   "note": "The preservation is stated plainly in the cited paragraphs (the acids preserve bodies like pickling)."
+  },
+  "claude-cli-haiku|6e9585863f28|b2": {
+   "verdict": "kept",
+   "note": "The crisis, the contaminated aquifer and the sewage are stated plainly."
+  },
+  "claude-cli-haiku|796372b84faf|b0": {
+   "verdict": "flip",
+   "note": "Missed: the small body is plain, but the source calls the other distinguishing features putative and disputed (\"might distinguish\", differing conclusions); the title states them as fact."
+  },
+  "claude-cli-haiku|95fdea942ffb|b2": {
+   "verdict": "flip",
+   "note": "Missed: the builder rates the tower's fire safety with \"probably\"; the title states, unattributed, that testing made it safer than conventional skyscrapers."
+  },
+  "claude-cli-haiku|9b5eb49e1849|b2": {
+   "verdict": "kept",
+   "note": "A published finding stated as the article reports it, with the \"may\" of its definition kept."
+  },
+  "claude-cli-haiku|9ef38e05b554|b3": {
+   "verdict": "kept",
+   "note": "\"unsure\" matches \"had not been confident\"."
+  },
+  "claude-cli-haiku|baf6e140086c|b2": {
+   "verdict": "kept",
+   "note": "\"may provide\" keeps the small study's \"possibility ... could\"."
+  },
+  "claude-cli-haiku|e55df937d2ef|b0": {
+   "verdict": "kept",
+   "note": "The share is the source's (\"about\" dropped: a rounding, not a certainty change)."
+  },
+  "claude-cli-sonnet|01dc9dfb64ea|b2": {
+   "verdict": "kept",
+   "note": "The source states plainly that nobody reached Crocker Land and how the expedition ended."
+  },
+  "claude-cli-sonnet|0aac70ada25a|b1": {
+   "verdict": "kept",
+   "note": "\"rests on\" slightly widens \"part of the US advantage stems from\", a scope change rather than a certainty change."
+  },
+  "claude-cli-sonnet|4b1602d41d39|verdict": {
+   "verdict": "kept",
+   "note": "The author's own argument, stated as plainly as the essay states it."
+  },
+  "claude-cli-sonnet|7e2409d0186b|b0": {
+   "verdict": "kept",
+   "note": "The rejection is stated plainly, as the title says."
+  },
+  "claude-cli-sonnet|8324c24fac73|b3": {
+   "verdict": "kept",
+   "note": "Both positions are attributed, as in the source."
+  },
+  "claude-cli-sonnet|a664950dee1c|b0": {
+   "verdict": "kept",
+   "note": "The sales rise is stated plainly with figures."
+  },
+  "claude-cli-sonnet|c9d9ddb0e094|b0": {
+   "verdict": "kept",
+   "note": "The investigator's tracing of cases to her is stated plainly; her carrier status stays his hypothesis in the body."
+  },
+  "claude-cli-sonnet|c9d9ddb0e094|b4": {
+   "verdict": "kept",
+   "note": "The nickname's use and the story's re-examination are stated plainly."
+  },
+  "gemini-3.5-flash-lite|2d103bafa2df|b1": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gemini-3.5-flash-lite|4b1602d41d39|b0": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gemini-3.5-flash-lite|4e427a10f1f1|verdict": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gemini-3.5-flash-lite|5fa56dff45eb|b3": {
+   "verdict": "kept",
+   "note": "Plain advice, as the page gives it."
+  },
+  "gemini-3.5-flash-lite|8324c24fac73|b1": {
+   "verdict": "kept",
+   "note": "The delays are measured figures in the source."
+  },
+  "gemini-3.5-flash-lite|85dca1bb596d|b0": {
+   "verdict": "kept",
+   "note": "Keeps the claims as competing claims."
+  },
+  "gemini-3.5-flash-lite|8ea0abe7962f|b1": {
+   "verdict": "kept",
+   "note": "\"unlikely to be resolved\" keeps the source's \"unlikely\"."
+  },
+  "gemini-3.5-flash-lite|a2708d97c646|verdict": {
+   "verdict": "kept",
+   "note": "Attributed to the report, as the source does."
+  },
+  "gemini-3.8-flash|192174f01029|b3": {
+   "verdict": "kept",
+   "note": "The trade-offs are the source's own."
+  },
+  "gemini-3.8-flash|19d36e0be374|b2": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gemini-3.8-flash|1bdfb59992a9|verdict": {
+   "verdict": "kept",
+   "note": "The review and the failings are stated plainly."
+  },
+  "gemini-3.8-flash|3cf197dc4122|b0": {
+   "verdict": "kept",
+   "note": "Drops \"often\" and \"typically\", generality qualifiers rather than certainty hedges; the data claim matches."
+  },
+  "gemini-3.8-flash|4e427a10f1f1|b3": {
+   "verdict": "kept",
+   "note": "The Asian, African and South American disruptions each have a plainly stated instance in the cited text."
+  },
+  "gemini-3.8-flash|85325a44fcde|b2": {
+   "verdict": "kept",
+   "note": "The theories are reported as theories."
+  },
+  "gemini-3.8-flash|b7fcc548151f|b0": {
+   "verdict": "kept",
+   "note": "The linguistic and runic evidence is stated plainly."
+  },
+  "gemini-3.8-flash|c9d9ddb0e094|b1": {
+   "verdict": "kept",
+   "note": "The hospital outbreak and her part in it are stated plainly."
+  },
+  "gpt-5.4-mini|113161bbba31|b2": {
+   "verdict": "kept",
+   "note": "\"can find\" matches exercises \"designed to identify gaps\"."
+  },
+  "gpt-5.4-mini|164d082509b5|b2": {
+   "verdict": "kept",
+   "note": "The source says the analyses proved it a forgery."
+  },
+  "gpt-5.4-mini|279790480af0|verdict": {
+   "verdict": "kept",
+   "note": "No clause is more certain than the fact sheet."
+  },
+  "gpt-5.4-mini|652a46fcc885|b2": {
+   "verdict": "kept",
+   "note": "\"seeking ... legal action\" slightly strengthens \"considering\", but a law firm already represents some residents."
+  },
+  "gpt-5.4-mini|689ded5651e8|b0": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gpt-5.4-mini|71e1674702aa|b0": {
+   "verdict": "kept",
+   "note": "\"being framed\" keeps the experts' framing as theirs."
+  },
+  "gpt-5.4-mini|85325a44fcde|b2": {
+   "verdict": "kept",
+   "note": "Reports the official attributions as attributions."
+  },
+  "gpt-5.4-mini|baf6e140086c|b1": {
+   "verdict": "kept",
+   "note": "Follows from the plainly stated differences between fibre types."
+  },
+  "gpt-5.5|456fca900570|b0": {
+   "verdict": "kept",
+   "note": "The definition as the source gives it."
+  },
+  "gpt-5.5|4b1602d41d39|b0": {
+   "verdict": "kept",
+   "note": "Stated plainly in the source."
+  },
+  "gpt-5.5|4b1602d41d39|b3": {
+   "verdict": "kept",
+   "note": "The author's argument, stated as plainly as the essay states it."
+  },
+  "gpt-5.5|520246ce54c2|b2": {
+   "verdict": "kept",
+   "note": "Attributed to experts, with \"would require\"."
+  },
+  "gpt-5.5|9b5eb49e1849|verdict": {
+   "verdict": "kept",
+   "note": "Keeps \"could\" and \"seems unlikely\"."
+  },
+  "gpt-5.5|a664950dee1c|b2": {
+   "verdict": "kept",
+   "note": "Stated plainly with figures."
+  },
+  "gpt-5.5|d4766503741e|b1": {
+   "verdict": "kept",
+   "note": "The author's reading of the episode, as plainly as the source puts it."
+  },
+  "gpt-5.5|f90b3c6aa43a|b3": {
+   "verdict": "kept",
+   "note": "The source's own words: the researchers cannot determine why."
+  }
+ }
+}

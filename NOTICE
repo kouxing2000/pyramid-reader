@@ -1,0 +1,14 @@
+Pyramid Reader
+Copyright (c) 2026 Peach Studio
+
+The code is licensed under the MIT License (see LICENSE).
+
+The first-run demo is not code and is licensed separately:
+
+  src/demo/demo.html     the visible paragraphs of "Mary Mallon", Wikipedia, revision
+                         1376401637 (24 September 2026), by Wikipedia contributors
+  src/demo/demo-tree.js  the tree built from that article, whose quotes are its words
+
+Both are shared under the Creative Commons Attribution-ShareAlike 4.0 licence
+(https://creativecommons.org/licenses/by-sa/4.0/). Changes: only the paragraphs a reader
+sees, as plain text, and the tree drawn from them. scripts/build-demo.mjs writes both.

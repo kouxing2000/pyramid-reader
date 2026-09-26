@@ -1,0 +1,93 @@
+# The eval's pages (SPEC §8): one `<kind> <url>` per line. kind: analysis (hedged news analysis
+# and reports), reference (wiki and reference pages), narrative (stories, biographies, history).
+# Weighted toward analysis and reference, plus some narrative. Wikipedia pages are pinned to a
+# revision; news pages are read as they are on the day of the run, and each run records the text
+# hash it measured. Pages are fetched when the eval runs; their text is never committed.
+# The two prototype pages (SPEC §9.4) come first in their groups.
+
+# analysis: 43
+analysis https://www.bbc.com/news/articles/c6gqdgg8w59xo
+analysis https://www.bbc.co.uk/news/articles/ckddvje77m2zo
+analysis https://www.bbc.co.uk/news/articles/cjly4rv0q3l0o
+analysis https://www.bbc.co.uk/news/articles/cw8d32vv4l7vo
+analysis https://www.bbc.co.uk/news/articles/cwp80l0my1x2o
+analysis https://www.bbc.co.uk/news/articles/c8xkvzlz0x4o
+analysis https://www.bbc.co.uk/news/articles/c20917w25n4o
+analysis https://www.bbc.co.uk/news/articles/cmy4zqgk97wlo
+analysis https://www.bbc.co.uk/news/articles/cry8zwwq21pxo
+analysis https://www.bbc.co.uk/news/articles/c8r4v7n6py97o
+analysis https://www.bbc.co.uk/news/articles/cq62j13gnyrko
+analysis https://theconversation.com/mosque-attack-highlights-evolving-extremism-landscape-that-has-brought-pakistan-afghanistan-ties-to-crisis-point-292416
+analysis https://theconversation.com/how-the-us-gave-up-its-edge-to-china-in-processing-vital-rare-earth-minerals-and-what-thats-costing-292631
+analysis https://theconversation.com/why-ai-has-trouble-predicting-the-fury-of-hurricane-intensity-287281
+analysis https://theconversation.com/epa-says-repealing-power-plant-emissions-rules-will-save-billions-but-its-estimate-leaves-out-health-and-climate-costs-292051
+analysis https://theconversation.com/three-ts-will-dominate-trump-xi-summit-but-expect-little-movement-on-trade-less-on-taiwan-and-who-knows-on-tech-291819
+analysis https://theconversation.com/no-cheery-time-for-election-pollsters-in-run-up-to-us-midterms-289772
+analysis https://theconversation.com/russia-ukraine-war-is-accelerating-the-dangerous-race-toward-fully-autonomous-drones-290877
+analysis https://theconversation.com/noise-pollution-is-a-serious-but-often-forgotten-public-health-problem-290223
+analysis https://theconversation.com/as-cities-prepare-for-2026s-super-el-nino-some-crucial-blind-spots-cant-be-ignored-290787
+analysis https://theconversation.com/the-higher-your-body-fat-percentage-the-less-accurate-your-smartwatch-is-at-measuring-calories-you-burn-when-exercising-new-study-291632
+analysis https://theconversation.com/fiber-is-both-diet-fad-and-fixture-for-good-health-a-doctor-explains-why-there-is-no-one-size-fits-all-way-to-increase-your-intake-290023
+analysis https://theconversation.com/the-sat-has-changed-since-it-debuted-100-years-ago-but-questions-remain-about-its-relevance-287551
+analysis https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going
+analysis https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts
+analysis https://www.npr.org/2026/09/24/nx-s1-5978861/conflict-ethiopia-tigray
+analysis https://www.npr.org/2026/09/24/g-s1-144835/openai-breach-australia
+analysis https://www.aljazeera.com/news/2026/9/24/china-vs-us-who-is-winning-the-ai-race-in-four-charts
+analysis https://www.aljazeera.com/news/2026/9/24/trump-xi-summit-whats-on-the-agenda-why-it-matters
+analysis https://www.aljazeera.com/economy/2026/9/24/trump-and-xi-summit-may-just-be-a-horse-and-pony-show-experts-say
+analysis https://www.quantamagazine.org/biology-might-not-be-quantum-but-its-math-is-quantumlike-20260923/
+analysis https://www.quantamagazine.org/how-virus-like-jumping-genes-became-our-partners-in-evolution-20260921/
+analysis https://arstechnica.com/tech-policy/2026/09/china-silent-as-us-touts-plan-for-ai-safety-alerts-that-omits-tech-experts/
+analysis https://arstechnica.com/science/2026/09/small-undersea-volcanoes-may-unleash-outsized-tsunamis/
+analysis https://arstechnica.com/space/2026/09/there-are-now-17000-satellites-in-orbit-and-growing-should-we-be-concerned/
+analysis https://arstechnica.com/science/2026/09/contrary-to-some-reports-you-dont-have-two-brains/
+analysis https://arstechnica.com/reviews/2026/09/how-the-us-handed-china-control-of-the-rare-earth-supply-chain/
+analysis https://www.theguardian.com/us-news/2026/sep/21/africa-healthcare-aid-program-withdrawl
+analysis https://www.theguardian.com/technology/2026/sep/24/nick-clegg-plays-down-fears-godlike-ai-could-exterminate-humanity
+analysis https://www.theguardian.com/politics/2026/sep/24/tactical-voting-uk-election-reform-fourth-place-poll
+analysis https://www.theguardian.com/politics/2026/sep/24/uk-losing-billions-in-eu-trade-due-to-mismatched-product-rules
+analysis https://www.theguardian.com/world/2026/sep/24/israel-water-shortages-destruction-gaza-treatment-plants-pollution-sanitation-crisis
+analysis https://www.theguardian.com/business/2026/sep/24/eu-sales-chinese-hybrid-cars-rocket
+
+# reference: 24
+reference https://www.who.int/news-room/fact-sheets/detail/malaria
+reference https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue
+reference https://www.who.int/news-room/fact-sheets/detail/antimicrobial-resistance
+reference https://ods.od.nih.gov/factsheets/VitaminD-Consumer/
+reference https://ods.od.nih.gov/factsheets/Omega3FattyAcids-Consumer/
+reference https://science.nasa.gov/universe/dark-matter-dark-energy/
+reference https://www.nhs.uk/conditions/migraine/
+reference https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
+reference https://en.wikipedia.org/w/index.php?title=Mpemba_effect&oldid=1376233822
+reference https://en.wikipedia.org/w/index.php?title=Wow%21_signal&oldid=1375427027
+reference https://en.wikipedia.org/w/index.php?title=Carrington_Event&oldid=1373617252
+reference https://en.wikipedia.org/w/index.php?title=Bog_body&oldid=1373812973
+reference https://en.wikipedia.org/w/index.php?title=Dunning%E2%80%93Kruger_effect&oldid=1375056388
+reference https://en.wikipedia.org/w/index.php?title=Year_Without_a_Summer&oldid=1375210666
+reference https://en.wikipedia.org/w/index.php?title=Kensington_Runestone&oldid=1365631547
+reference https://en.wikipedia.org/w/index.php?title=Piltdown_Man&oldid=1374042281
+reference https://en.wikipedia.org/w/index.php?title=Tulip_mania&oldid=1360651146
+reference https://en.wikipedia.org/w/index.php?title=Coelacanth&oldid=1374630749
+reference https://en.wikipedia.org/w/index.php?title=Nazca_lines&oldid=1374744506
+reference https://en.wikipedia.org/w/index.php?title=Indus_script&oldid=1374777439
+reference https://en.wikipedia.org/w/index.php?title=Placebo&oldid=1376281766
+reference https://en.wikipedia.org/w/index.php?title=Tunguska_event&oldid=1375747308
+reference https://en.wikipedia.org/w/index.php?title=Baghdad_Battery&oldid=1376005287
+reference https://en.wikipedia.org/w/index.php?title=Homo_floresiensis&oldid=1375976871
+
+# narrative: 14
+narrative https://en.wikipedia.org/w/index.php?title=Mary_Mallon&oldid=1376401637
+narrative https://en.wikipedia.org/w/index.php?title=Dancing_plague_of_1518&oldid=1369894564
+narrative https://en.wikipedia.org/w/index.php?title=Great_Molasses_Flood&oldid=1375476005
+narrative https://en.wikipedia.org/w/index.php?title=Radium_Girls&oldid=1376349397
+narrative https://en.wikipedia.org/w/index.php?title=Ignaz_Semmelweis&oldid=1374734853
+narrative https://en.wikipedia.org/w/index.php?title=Dyatlov_Pass_incident&oldid=1372642989
+narrative https://www.theguardian.com/news/2026/sep/17/faster-louder-brighter-how-the-attention-economy-overwhelmed-childrens-tv
+narrative https://www.theguardian.com/news/ng-interactive/2026/aug/27/the-flat-pack-skyscraper-how-wood-can-shape-the-cities-of-the-future
+narrative https://publicdomainreview.org/essay/gratacap-curator-in-lost-worlds
+narrative https://publicdomainreview.org/essay/the-great-majority
+narrative https://publicdomainreview.org/essay/fear-and-fragility-the-glass-delusion-and-its-history
+narrative https://theconversation.com/annie-dillard-brought-poetry-into-prose-pioneering-a-mystical-form-of-creative-nonfiction-that-critics-both-admired-and-misunderstood-290676
+narrative https://theconversation.com/how-red-went-from-the-color-of-revolution-to-the-color-of-republicans-in-us-politics-291823
+narrative https://theconversation.com/what-happened-at-the-end-of-the-revolutionary-war-heres-how-americans-set-up-a-brand-new-country-once-the-fighting-ended-286595

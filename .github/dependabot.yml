@@ -1,0 +1,29 @@
+# Keeps the test tooling and the CI actions current without generating PR noise for a solo
+# maintainer.
+#
+# Scope note: NOTHING here ships. The extension is zero-dependency vanilla JS loaded straight
+# from src/ (scripts/package.mjs zips src/ and nothing else), so an npm advisory can never
+# reach a user. It can still reach CI, which is the risk being managed.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: 'ci'
+
+  # Dev tooling (Playwright). One grouped PR a week; CI runs the full suite on it, which is
+  # exactly the check a Playwright bump needs.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      dev-tooling:
+        patterns: ['*']
+    commit-message:
+      prefix: 'chore(deps)'

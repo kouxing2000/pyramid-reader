@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Pyramid Reader",
+  "version": "0.0.3",
+  "description": "Read the conclusion first, then open only the levels you need: claims, evidence, the sentence on the page.",
+  "minimum_chrome_version": "116",
+  "homepage_url": "https://github.com/kouxing2000/pyramid-reader",
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "permissions": ["activeTab", "scripting", "sidePanel", "storage"],
+  "optional_host_permissions": [
+    "https://api.anthropic.com/*",
+    "https://api.openai.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.deepseek.com/*",
+    "https://dashscope-intl.aliyuncs.com/*",
+    "https://api.moonshot.ai/*",
+    "https://openrouter.ai/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Pyramid Reader",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+P" },
+      "description": "Open Pyramid Reader on this page"
+    }
+  },
+  "side_panel": {
+    "default_path": "panel/panel.html"
+  }
+}
