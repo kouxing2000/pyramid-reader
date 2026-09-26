@@ -15,7 +15,7 @@ dashboard-only. Companion files: `privacy-practices.md` (the Privacy practices t
 | Name | Pyramid Reader |
 | Category | Tools (in the Productivity group). Education is the alternative if the dashboard's list reads better that way; the dashboard's current list decides. |
 | Language | English |
-| Visibility | Unlisted for the draft and the first review, so the link can be shared for dogfooding before the listing is searchable; Public once the SPEC §9.5 gates are met. |
+| Visibility | Public. |
 | Distribution | All regions. |
 
 ## Short description (132 characters max)

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-09-26
+
 - Settings points a reader with no API key to a free Gemini key from Google AI Studio, and notes
   that Google may use free-tier text to improve its products. Following the link sets the form to
   Google Gemini.
@@ -14,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   panel header already names the extension. The Settings sheet runs the panel's full width.
 - Focus rings stay inside their segment, All / Focus / Off appears once a tree is on screen, and
   the Model field lines up with the others.
+- The extension links to its source: https://github.com/kouxing2000/pyramid-reader.
 
 ## [0.0.3] - 2026-09-26
 

@@ -188,7 +188,7 @@ The eval is how "tested models" gets its numbers, and how any prompt or model ch
 ## 9. MVP
 
 **Goal:** the maintainer uses it daily on real articles, and the eval says which models it can
-recommend. No store listing, pricing or public users yet.
+recommend.
 
 ### 9.1 In scope
 
@@ -199,13 +199,14 @@ recommend. No store listing, pricing or public users yet.
 - Settings with keys, models, tested-models table.
 - First-run demo tree without a key.
 - Eval harness + one full run on the models available.
+- Chrome Web Store listing in English, Public.
 
 ### 9.2 Out of scope
 
 Server of any kind · billing and accounts · mobile / share-sheet app · mainland edition and Edge
 store · shared or public trees · on-device Gemini Nano (probed 2026-09-26: it could not build
 the tree, DESIGN.md) · Firefox/Safari · telemetry · full-text
-translation · Chrome Web Store submission.
+translation.
 
 ### 9.3 Milestones — each ends in a commit with its tests green
 
@@ -234,8 +235,9 @@ translation · Chrome Web Store submission.
 
 ### 9.5 After the MVP (not now)
 
-Store listing in English and Chinese; public beta; gates before launch: zero hedge flips
-by the recommended model on the eval set (a review, §8), ≤$0.02 per tree on the recommended cheap model, verdict ≤10s.
+Store listing in Chinese. Quality gates, not yet met, that the first Public store release (0.0.4)
+shipped ahead of: zero hedge flips by the recommended model on the eval set (a review, §8), ≤$0.02
+per tree on the recommended cheap model, verdict ≤10s.
 
 ## 10. Open questions
 
