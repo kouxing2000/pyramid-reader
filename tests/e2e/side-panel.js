@@ -62,7 +62,43 @@ export async function attachSidePanel(cdp, extensionId) {
     for (const session of looked.values()) if (session !== panel) await session.detach().catch(() => {});
   }
   await poll(() => panel.evaluate(() => document.readyState === 'complete'), { what: 'the side panel to load' });
+  await panel.evaluate(recordPanel);
+  attached.add(panel);
   return panel;
+}
+
+// What each panel a test attached to did, for a failed test's report (fixtures.js): a flake on a
+// slower machine is read from this, since it rarely happens where it can be watched.
+const attached = new Set();
+
+// Runs in the panel: keeps its status line, the clicks it received and its errors, timed from the
+// panel's start, in window.__panelLog.
+function recordPanel() {
+  const log = (window.__panelLog = []);
+  const note = (what) => log.push(`${Math.round(performance.now())}ms ${what}`);
+  const status = document.getElementById('status');
+  note(`attached; status: ${JSON.stringify(status.textContent)}`);
+  new MutationObserver(() => note(`status: ${JSON.stringify(status.textContent)}`))
+    .observe(status, { childList: true, characterData: true, subtree: true });
+  document.addEventListener('click', (e) => note(`click on ${e.target.closest('[id]')?.id ?? e.target.tagName}` +
+    `${e.target.closest('button')?.disabled ? ' (disabled)' : ''}`), true);
+  addEventListener('error', (e) => note(`error: ${e.message}`));
+  addEventListener('unhandledrejection', (e) => note(`unhandled rejection: ${e.reason?.message ?? e.reason}`));
+  const error = console.error.bind(console);
+  console.error = (...args) => { note(`console.error: ${args.map(String).join(' ')}`); error(...args); };
+}
+
+/** Forgets the panels attached so far: each test's report names its own. */
+export const forgetPanels = () => attached.clear();
+
+/** The log of every panel attached since forgetPanels, one block per panel; a closed one says so. */
+export async function panelLogs() {
+  const blocks = [];
+  for (const panel of attached) {
+    const log = await panel.evaluate(() => window.__panelLog).catch((e) => [`(unreadable: ${e.message.split('\n')[0]})`]);
+    blocks.push(`panel ${panel.targetId}:\n  ${log.join('\n  ')}`);
+  }
+  return blocks.join('\n');
 }
 
 // Closes the front tab's panel and waits until its document is gone. A panel is closed by its tab:

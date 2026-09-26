@@ -8,6 +8,7 @@
 
 import { test as base, chromium, expect } from '@playwright/test';
 import { startMockProvider } from './mock-provider.js';
+import { forgetPanels, panelLogs } from './side-panel.js';
 import fs from 'node:fs';
 import http from 'node:http';
 import os from 'node:os';
@@ -93,6 +94,14 @@ export const test = base.extend({
   page: async ({ context }, use) => {
     await use(context.pages()[0] ?? (await context.newPage()));
   },
+
+  // A failed test prints what its side panels did (side-panel.js recordPanel). It depends on the
+  // context so that it runs while the panels are still open.
+  panelLog: [async ({ context }, use, testInfo) => {
+    forgetPanels();
+    await use();
+    if (testInfo.status !== testInfo.expectedStatus) console.error(`side panel log:\n${await panelLogs()}`);
+  }, { auto: true }],
 });
 
 export { expect };
