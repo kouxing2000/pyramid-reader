@@ -43,7 +43,7 @@ READ IT IN YOUR LANGUAGE
 The verdict and claims can be read in your own language, translated on your computer with Chrome's built-in translator (Chrome 138+): as written, both, or yours. Quotes stay the page's words. No tokens, no key, nothing sent.
 
 YOUR OWN MODEL AND KEY, NO SERVER
-Pyramid Reader calls the AI provider you choose, directly from your browser, with your API key: OpenAI, Anthropic, Google Gemini, or any OpenAI-compatible endpoint (DeepSeek, Qwen, Kimi, OpenRouter, or a local server such as Ollama). The page's visible text goes to that provider and nowhere else. No account, no server of ours, no telemetry; keys stay in your browser's local storage and are never synced.
+Pyramid Reader calls the AI provider you choose, directly from your browser, with your own API key: a major hosted model, a compatible endpoint you name, or a model running on your own computer. The page's visible text goes to that provider and nowhere else. No account, no server of ours, no telemetry; keys stay in your browser's local storage and are never synced.
 
 TRY IT BEFORE ADDING A KEY
 A bundled demo, a Wikipedia article with its tree, works with no key at all: click through the claims, see the highlights, read it in your language.
